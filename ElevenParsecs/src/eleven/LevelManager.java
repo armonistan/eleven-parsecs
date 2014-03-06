@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class LevelManager {
 	public static Player player;
+	public static Base base;
 	
 	public static ArrayList<Resource> resources;
 	public static LinkedList<Resource> resourcesToDestroy;
@@ -18,6 +19,7 @@ public class LevelManager {
 		//TODO: Generate background
 		//TODO: Generate asteroids
 		player = new Player();
+		base = new Base(new Vector2(-32, -32));
 
 		resources = new ArrayList<Resource>();
 		resourcesToDestroy = new LinkedList<Resource>();
@@ -26,13 +28,13 @@ public class LevelManager {
 	}
 	
 	public void render(SpriteBatch batch) {
+		base.render(batch);
 		player.render(batch);
 		
 		//Manage the resources
 		for (Resource r : resources) {
 			r.render(batch);
 		}
-		
 		for (Resource r : resourcesToDestroy) {
 			resources.remove(r);
 		}
