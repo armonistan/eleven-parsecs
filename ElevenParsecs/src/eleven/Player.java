@@ -42,8 +42,12 @@ public class Player {
 		ship.draw(batch);
 	}
 	
-	public Vector3 getPosition() {
+	public Vector3 getPosition3() {
 		return new Vector3(ship.getOriginX(), ship.getOriginY(), 0);
+	}
+	
+	public Vector2 getPosition2() {
+		return new Vector2(ship.getOriginX(), ship.getOriginY());
 	}
 	
 	//player update method
