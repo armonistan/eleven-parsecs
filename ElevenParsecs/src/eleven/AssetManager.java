@@ -10,12 +10,16 @@ public class AssetManager {
 	private Vector2 defaultAtlasBound;
 	
 	public AssetManager(Vector2 atlasBound) {
-		atlas = new Texture(Gdx.files.internal("data/libgdx.png"));
+		atlas = new Texture(Gdx.files.internal("data/spriteAtlas.png"));
 		defaultAtlasBound = atlasBound;
 	}
 	
 	public TextureRegion getAtlasRegion(Vector2 atlasPosition) {
+		return getAtlasRegion(atlasPosition, new Vector2(1, 1));
+	}
+	
+	public TextureRegion getAtlasRegion(Vector2 atlasPosition, Vector2 atlasSize) {
 		return new TextureRegion(atlas, (int)(atlasPosition.x * defaultAtlasBound.x), (int)(atlasPosition.y * defaultAtlasBound.y),
-			(int)defaultAtlasBound.x, (int)defaultAtlasBound.y);
+				(int)(defaultAtlasBound.x * atlasSize.x), (int)(defaultAtlasBound.y * atlasSize.y));
 	}
 }

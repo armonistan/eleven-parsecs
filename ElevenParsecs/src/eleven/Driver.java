@@ -28,7 +28,7 @@ public class Driver implements ApplicationListener {
 		camera = new OrthographicCamera(w, h);
 		batch = new SpriteBatch();
 		
-		assets = new AssetManager(new Vector2(512, 275));
+		assets = new AssetManager(new Vector2(32, 32));
 		level = new LevelManager();
 	}
 
@@ -44,7 +44,7 @@ public class Driver implements ApplicationListener {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
 		//Set the camera position
-		Vector3 lerped = camera.position.lerp(level.getPlayer().getPosition(), 0.2f);
+		Vector3 lerped = camera.position.lerp(level.player.getPosition3(), 0.2f);
 		camera.position.x = lerped.x;
 		camera.position.y = lerped.y;
 		camera.update();
