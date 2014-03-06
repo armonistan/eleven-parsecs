@@ -43,11 +43,11 @@ public class Player {
 	}
 	
 	public Vector3 getPosition3() {
-		return new Vector3(ship.getOriginX(), ship.getOriginY(), 0);
+		return new Vector3(ship.getOriginX() + ship.getX(), ship.getOriginY() + ship.getY(), 0);
 	}
 	
 	public Vector2 getPosition2() {
-		return new Vector2(ship.getOriginX(), ship.getOriginY());
+		return new Vector2(ship.getOriginX() + ship.getX(), ship.getOriginY() + ship.getY());
 	}
 	
 	//player update method
