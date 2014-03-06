@@ -17,7 +17,7 @@ public class Driver implements ApplicationListener {
 	public static AssetManager assets;
 	public static LevelManager level;
 	
-	private OrthographicCamera camera;
+	public static OrthographicCamera camera;
 	private SpriteBatch batch;
 	
 	@Override
