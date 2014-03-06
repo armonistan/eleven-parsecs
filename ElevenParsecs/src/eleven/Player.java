@@ -15,6 +15,7 @@ public class Player {
 	private Vector2 playerAcceleration;
 	private Vector2 playerVelocity;
 	private Vector2 changeInPlayerMovement;
+	private int numResourcesGathered;
 	//movement vectors
 	Vector2 forward; 
 	Vector2 backward;
@@ -35,6 +36,7 @@ public class Player {
 		playerAcceleration = new Vector2();
 		playerVelocity = new Vector2();
 		changeInPlayerMovement = new Vector2();
+		numResourcesGathered = 0;
 	}
 
 	public void render(SpriteBatch batch) {
@@ -124,5 +126,14 @@ public class Player {
 	
 	private void changeRotation(float changeInDegrees){
 		ship.setRotation(ship.getRotation() + changeInDegrees);
+	}
+	
+	public void addResource(){
+		numResourcesGathered++;
+	}
+	
+	//getters and setters
+	public Sprite getSprite(){
+		return ship;
 	}
 }
