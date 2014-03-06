@@ -18,7 +18,7 @@ public class Player {
 	private Vector2 changeInPlayerMovement;
 	
 	//constants
-	final float engineForce = 10000;
+	final float engineForce = 10;
 	final float playerMass = 10;
 	final Vector2 UP = new Vector2(0,engineForce);
 	final Vector2 DOWN = new Vector2(0,-1 * engineForce);
@@ -46,10 +46,7 @@ public class Player {
 		return new Vector3(ship.getOriginX(), ship.getOriginY(), 0);
 	}
 	
-	public Vector2 getPosition2() {
-		return new Vector2(ship.getOriginX(), ship.getOriginY());
-	}
-	
+<<<<<<< HEAD
 	//player update method
 	private void update(){
 		checkInput();
@@ -60,22 +57,19 @@ public class Player {
 		movePlayer();
 		clearForcesOnPlayer();
 		resetForceOnPlayer();
+		
 	}
 	
 	//method that checks for player input
 	private void checkInput(){
-		if(Gdx.input.isKeyPressed(Keys.W)){
+		if(Gdx.input.isKeyPressed(Keys.W));
 			addForceToPlayer(UP);
-		}
-		if(Gdx.input.isKeyPressed(Keys.A)){
+		if(Gdx.input.isKeyPressed(Keys.A));
 			addForceToPlayer(LEFT);
-		}
-		if(Gdx.input.isKeyPressed(Keys.S)){
+		if(Gdx.input.isKeyPressed(Keys.S));
 			addForceToPlayer(DOWN);
-		}
-		if(Gdx.input.isKeyPressed(Keys.D)){
+		if(Gdx.input.isKeyPressed(Keys.D));
 			addForceToPlayer(RIGHT);
-		}
 	}
 	
 	//takes all forces and adds them up
@@ -90,7 +84,7 @@ public class Player {
 	}
 	
 	public void addForceToPlayer(Vector2 newForce){
-		listOfForces.add(newForce);
+		forceOnPlayer.add(newForce);
 	}
 	
 	private void clearForcesOnPlayer(){
@@ -110,6 +104,10 @@ public class Player {
 	}
 	
 	private void movePlayer(){
-		ship.setPosition(ship.getX() + changeInPlayerMovement.x, ship.getY() + changeInPlayerMovement.y);
+		ship.setOrigin(ship.getOriginX() + changeInPlayerMovement.x, ship.getOriginY() + changeInPlayerMovement.y);
+=======
+	public Vector2 getPosition2() {
+		return new Vector2(ship.getOriginX(), ship.getOriginY());
+>>>>>>> 4575747f7bb9f8780f0bb74292c42d29647e5d73
 	}
 }
