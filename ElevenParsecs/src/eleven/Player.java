@@ -6,8 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.*;
 
 public class Player {
 	private Sprite ship;
@@ -16,14 +15,16 @@ public class Player {
 	private Vector2 playerAcceleration;
 	private Vector2 playerVelocity;
 	private Vector2 changeInPlayerMovement;
+	//movement vectors
+	Vector2 forward; 
+	Vector2 backward;
+	
 	
 	//constants
-	final float engineForce = 10000;
+	final float engineForce = 1000;
 	final float playerMass = 10;
-	final Vector2 UP = new Vector2(0,engineForce);
-	final Vector2 DOWN = new Vector2(0,-1 * engineForce);
-	final Vector2 LEFT = new Vector2(-1 * engineForce,0);
-	final Vector2 RIGHT = new Vector2(engineForce,0);
+	final float LEFT = 3;//in degrees for turning
+	final float RIGHT = -3;
 	//TODO: Add shooting variables
 	
 	public Player() {
@@ -52,6 +53,7 @@ public class Player {
 	
 	//player update method
 	private void update(){
+		calculateEngineForces();
 		checkInput();
 		sumForcesOnPlayer();
 		calculateAcceleration();
@@ -62,19 +64,26 @@ public class Player {
 		resetForceOnPlayer();
 	}
 	
+	private void calculateEngineForces(){
+		forward = new Vector2(engineForce *  MathUtils.cosDeg(ship.getRotation()), 
+				engineForce *  MathUtils.sinDeg(ship.getRotation()));
+		backward = new Vector2(-1*engineForce *  MathUtils.cosDeg(ship.getRotation()), 
+				-1*engineForce *  MathUtils.sinDeg(ship.getRotation()));
+	}
+	
 	//method that checks for player input
 	private void checkInput(){
 		if(Gdx.input.isKeyPressed(Keys.W)){
-			addForceToPlayer(UP);
+			addForceToPlayer(forward);
 		}
 		if(Gdx.input.isKeyPressed(Keys.A)){
-			addForceToPlayer(LEFT);
+			changeRotation(LEFT);
 		}
 		if(Gdx.input.isKeyPressed(Keys.S)){
-			addForceToPlayer(DOWN);
+			addForceToPlayer(backward);
 		}
 		if(Gdx.input.isKeyPressed(Keys.D)){
-			addForceToPlayer(RIGHT);
+			changeRotation(RIGHT);
 		}
 	}
 	
@@ -98,18 +107,22 @@ public class Player {
 	}
 
 	private void calculateAcceleration(){
-		playerAcceleration = forceOnPlayer.div(playerMass);
+		playerAcceleration.add(forceOnPlayer.div(playerMass));
 	}
 	
 	private void calculateVelocity(){
-		playerVelocity = playerAcceleration.scl(Gdx.graphics.getRawDeltaTime());
+		playerVelocity.add(playerAcceleration.scl(Gdx.graphics.getRawDeltaTime()));
 	}
 	
 	private void calculateChangeInPlayerPosition(){
-		changeInPlayerMovement = playerVelocity.scl(Gdx.graphics.getRawDeltaTime());
+		changeInPlayerMovement.add(playerVelocity.scl(Gdx.graphics.getRawDeltaTime()));
 	}
 	
 	private void movePlayer(){
 		ship.setPosition(ship.getX() + changeInPlayerMovement.x, ship.getY() + changeInPlayerMovement.y);
+	}
+	
+	private void changeRotation(float changeInDegrees){
+		ship.setRotation(ship.getRotation() + changeInDegrees);
 	}
 }
