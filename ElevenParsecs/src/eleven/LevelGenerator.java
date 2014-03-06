@@ -52,7 +52,7 @@ public class LevelGenerator {
 		this.mapSize = mapSize;
 		
 		this.space = new TileRegion(0, 6, 1, 1);
-		this.stars = new TileRegion(1, 6, 2, 2);
+		this.stars = new TileRegion(1, 6, 1, 1);
 		
 		this.tiles = new Texture(Gdx.files.internal("data/spriteAtlas.png"));
 		this.map = new TiledMap();
