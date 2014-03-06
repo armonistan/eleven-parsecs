@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 public class Driver implements ApplicationListener {
 	//Static members
@@ -41,6 +42,12 @@ public class Driver implements ApplicationListener {
 		//This clears the screen.
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		
+		//Set the camera position
+		Vector3 lerped = camera.position.lerp(level.getPlayer().getPosition(), 0.2f);
+		camera.position.x = lerped.x;
+		camera.position.y = lerped.y;
+		camera.update();
 		
 		//Set the camera to our camera.
 		batch.setProjectionMatrix(camera.combined);
