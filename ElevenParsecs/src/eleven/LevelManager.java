@@ -53,6 +53,7 @@ public class LevelManager {
 		for (Resource r : resourcesToDestroy) {
 			resources.remove(r);
 		}
+		resourcesToDestroy.clear();
 		
 		//TODO: Update asteroids (and the like)
 		batch.end();
