@@ -7,13 +7,14 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 
 public class LevelManager {
-
 	LevelGenerator generator;
 	TiledMap map;
 	int mapSize = 1000;
+	OrthogonalTiledMapRenderer mapRenderer;
 
 	public static Player player;
 	public static Base base;
@@ -27,11 +28,7 @@ public class LevelManager {
 		player = new Player();
 		generator = new LevelGenerator(this.mapSize);
 		map = generator.getMap();
-		/*TextureRegion test = Driver.assets.getAtlasRegion(new Vector2(0, 0));
-		sprite = new Sprite(test);
-		//sprite.setSize(0.9f, 0.9f * sprite.getHeight() / sprite.getWidth());
-		sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2);
-		sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);*/
+		mapRenderer = new OrthogonalTiledMapRenderer(map, 1);
 
 		base = new Base(new Vector2(-32, -32));
 
@@ -42,6 +39,10 @@ public class LevelManager {
 	}
 	
 	public void render(SpriteBatch batch) {
+		mapRenderer.setView(Driver.camera);
+		mapRenderer.render();
+
+		batch.begin();
 		base.render(batch);
 		player.render(batch);
 		
@@ -54,5 +55,7 @@ public class LevelManager {
 		}
 		
 		//TODO: Update asteroids (and the like)
+		batch.end();
+		
 	}
 }

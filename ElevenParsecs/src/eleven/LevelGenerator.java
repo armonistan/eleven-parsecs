@@ -17,7 +17,6 @@ import java.util.*;
 public class LevelGenerator {
 	int mapSize;
 	TiledMap map;
-	OrthogonalTiledMapRenderer mapRenderer;
 	Texture tiles;
 	TileRegion space;
 	TileRegion stars;
@@ -51,7 +50,7 @@ public class LevelGenerator {
 	public LevelGenerator(int mapSize) {
 		this.mapSize = mapSize;
 		
-		this.space = new TileRegion(0, 6, 1, 1);
+		this.space = new TileRegion(0, 6, 0, 0);
 		this.stars = new TileRegion(1, 6, 1, 1);
 		
 		this.tiles = new Texture(Gdx.files.internal("data/spriteAtlas.png"));

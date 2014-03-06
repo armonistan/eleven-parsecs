@@ -51,9 +51,7 @@ public class Driver implements ApplicationListener {
 		
 		//Set the camera to our camera.
 		batch.setProjectionMatrix(camera.combined);
-		batch.begin();
 		level.render(batch);
-		batch.end();
 	}
 
 	@Override
