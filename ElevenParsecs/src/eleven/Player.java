@@ -28,9 +28,10 @@ public class Player {
 	final float RIGHT = -3;
 	//TODO: Add shooting variables
 	
-	public Player() {
+	public Player(int x, int y) {
 		//TODO: Set init position
 		ship = new Sprite(Driver.assets.getAtlasRegion(new Vector2(0, 0)));
+		ship.setPosition(x, y);
 		listOfForces = new LinkedList<Vector2>();
 		forceOnPlayer = new Vector2();
 		playerAcceleration = new Vector2();

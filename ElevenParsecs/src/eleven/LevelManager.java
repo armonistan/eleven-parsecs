@@ -14,6 +14,8 @@ public class LevelManager {
 	LevelGenerator generator;
 	TiledMap map;
 	int mapSize = 1000;
+	int playerStartX = mapSize * 32 / 2;
+	int playerStartY = playerStartX;
 	OrthogonalTiledMapRenderer mapRenderer;
 
 	public static Player player;
@@ -25,17 +27,19 @@ public class LevelManager {
 	public LevelManager() {
 		//TODO: Generate background
 		//TODO: Generate asteroids
-		player = new Player();
+		player = new Player(playerStartX, playerStartY);
+		Driver.camera.position.x = playerStartX;
+		Driver.camera.position.y = playerStartY;
 		generator = new LevelGenerator(this.mapSize);
 		map = generator.getMap();
 		mapRenderer = new OrthogonalTiledMapRenderer(map, 1);
 
-		base = new Base(new Vector2(-32, -32));
+		base = new Base(new Vector2(playerStartX, playerStartY));
 
 		resources = new ArrayList<Resource>();
 		resourcesToDestroy = new LinkedList<Resource>();
 		
-		resources.add(new Resource(new Vector2(64, 64)));
+		resources.add(new Resource(new Vector2(playerStartX + 64, playerStartY + 64)));
 	}
 	
 	public void render(SpriteBatch batch) {
