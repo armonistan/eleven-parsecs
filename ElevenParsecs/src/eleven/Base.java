@@ -25,10 +25,8 @@ public class Base {
 	
 	private void update(){
 		if(isCollideWithPlayer()){
-			numResourcesHeld = player.depositResources();
+			numResourcesHeld += player.depositResources();
 		}
-		
-		System.out.println(numResourcesHeld);
 	}
 	
 	private boolean isCollideWithPlayer(){

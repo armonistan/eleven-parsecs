@@ -22,6 +22,9 @@ public class LevelManager {
 	public static ArrayList<Resource> resources;
 	public static LinkedList<Resource> resourcesToDestroy;
 	
+	public static ArrayList<Destructible> destructibles;
+	public static LinkedList<Destructible> destructiblesToDestroy;
+	
 	public LevelManager() {
 		//TODO: Generate background
 		//TODO: Generate asteroids
@@ -35,7 +38,14 @@ public class LevelManager {
 		resources = new ArrayList<Resource>();
 		resourcesToDestroy = new LinkedList<Resource>();
 		
+		//temp
 		resources.add(new Resource(new Vector2(64, 64)));
+		
+		destructibles = new ArrayList<Destructible>();
+		destructiblesToDestroy = new LinkedList<Destructible>();
+		
+		//temp
+		destructibles.add(new Destructible(new Vector2(32,32), new Vector2(3,0), new Vector2(100,100), 10));
 	}
 	
 	public void render(SpriteBatch batch) {
@@ -54,7 +64,16 @@ public class LevelManager {
 			resources.remove(r);
 		}
 		resourcesToDestroy.clear();
-		
+		//Manage the destructibles
+		//TODO: added provisions for destructibles making destructibles
+				for (Destructible d : destructibles) {
+					d.render(batch);
+				}
+				for (Destructible d : destructiblesToDestroy) {
+					resources.remove(d);
+				}
+				destructiblesToDestroy.clear();
+				
 		//TODO: Update asteroids (and the like)
 		batch.end();
 		

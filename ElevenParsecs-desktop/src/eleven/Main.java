@@ -9,7 +9,7 @@ public class Main {
 		cfg.title = "Eleven Parsecs";
 		cfg.useGL20 = false;
 		cfg.width = 480;
-		cfg.height = 320;
+		cfg.height = 480;
 		cfg.resizable = false;
 		
 		new LwjglApplication(new Driver(), cfg);
