@@ -35,7 +35,7 @@ public class LevelManager {
 		resources = new ArrayList<Resource>();
 		resourcesToDestroy = new LinkedList<Resource>();
 		
-		resources.add(new Resource(new Vector2(32, 32)));
+		resources.add(new Resource(new Vector2(64, 64)));
 	}
 	
 	public void render(SpriteBatch batch) {
