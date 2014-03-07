@@ -57,7 +57,6 @@ public class Resource {
 		float radian = MathUtils.atan2(deltaYOfResourceToPlayer, deltaXOfResourceToPlayer);
 		
 		resource.setRotation(MathUtils.radiansToDegrees * radian);
-		System.out.println(resource.getRotation());
 	}
 	
 	private void calculateAcceleration(){

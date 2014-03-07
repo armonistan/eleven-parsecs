@@ -132,6 +132,13 @@ public class Player {
 		numResourcesGathered++;
 	}
 	
+	public int depositResources(){
+		int passedNumResourcesGathered = numResourcesGathered;
+		numResourcesGathered = 0;
+		
+		return passedNumResourcesGathered;
+	}
+	
 	//getters and setters
 	public Sprite getSprite(){
 		return ship;
