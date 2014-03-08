@@ -49,7 +49,7 @@ public class LevelManager {
 		destructiblesToDestroy = new LinkedList<Destructible>();
 		
 		//temp
-		destructibles.add(new Destructible(new Vector2(32,32), new Vector2(3,0), new Vector2(100,100), 10));
+		destructibles.add(new Destructible(new Vector2(playerStartX + 32, playerStartY + 32), new Vector2(3,0), new Vector2(100,100), 10));
 	}
 	
 	public void render(SpriteBatch batch) {
