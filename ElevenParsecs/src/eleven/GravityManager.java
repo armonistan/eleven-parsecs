@@ -4,13 +4,21 @@ import java.util.ArrayList;
 
 public class GravityManager {
 
-	public static ArrayList<Destructible> destructibles;
+	ArrayList<Destructible> destructibles;
 	
 	public GravityManager() {
-		destructibles = new ArrayList<Destructible>();
+		this.destructibles = new ArrayList<Destructible>();
 	}
 	
-	public void GenerateDestructibles() {
-		destructibles.clear();
+	public void ClearDestructibles() {
+		this.destructibles.clear();
+	}
+	
+	public void AddDestructible(Destructible newDestructible) {
+		this.destructibles.add(newDestructible);
+	}
+	
+	public ArrayList<Destructible> GetDestructibles() {
+		return this.destructibles;
 	}
 }

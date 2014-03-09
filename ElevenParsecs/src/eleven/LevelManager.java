@@ -13,11 +13,13 @@ import com.badlogic.gdx.math.Vector2;
 public class LevelManager {
 	LevelGenerator generator;
 	TiledMap map;
-	int mapSize = 1000;
-	int playerStartX = mapSize * 32 / 2;
-	int playerStartY = playerStartX;
+	public static int mapSize = 1000;
+	public static int playerStartX = mapSize * 32 / 2;
+	public static int playerStartY = playerStartX;
 	OrthogonalTiledMapRenderer mapRenderer;
 
+	public static int numDestructibles = 100;
+	
 	public static Player player;
 	public static Base base;
 	
@@ -33,7 +35,7 @@ public class LevelManager {
 		player = new Player(playerStartX, playerStartY);
 		Driver.camera.position.x = playerStartX;
 		Driver.camera.position.y = playerStartY;
-		generator = new LevelGenerator(this.mapSize);
+		generator = new LevelGenerator(this.mapSize, this.numDestructibles);
 		map = generator.getMap();
 		mapRenderer = new OrthogonalTiledMapRenderer(map, 1);
 
@@ -44,12 +46,6 @@ public class LevelManager {
 		
 		//temp
 		resources.add(new Resource(new Vector2(64, 64)));
-		
-		destructibles = new ArrayList<Destructible>();
-		destructiblesToDestroy = new LinkedList<Destructible>();
-		
-		//temp
-		destructibles.add(new Destructible(new Vector2(playerStartX + 32, playerStartY + 32), new Vector2(3,0), new Vector2(100,100), 10));
 	}
 	
 	public void render(SpriteBatch batch) {
@@ -70,13 +66,9 @@ public class LevelManager {
 		resourcesToDestroy.clear();
 		//Manage the destructibles
 		//TODO: added provisions for destructibles making destructibles
-				for (Destructible d : destructibles) {
-					d.render(batch);
-				}
-				for (Destructible d : destructiblesToDestroy) {
-					resources.remove(d);
-				}
-				destructiblesToDestroy.clear();
+		for (Destructible d : Driver.gravity.GetDestructibles()) {
+			d.render(batch);
+		}
 				
 		//TODO: Update asteroids (and the like)
 		batch.end();

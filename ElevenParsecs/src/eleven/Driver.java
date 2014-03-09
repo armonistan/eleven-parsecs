@@ -16,6 +16,7 @@ public class Driver implements ApplicationListener {
 	//Static members
 	public static AssetManager assets;
 	public static LevelManager level;
+	public static GravityManager gravity;
 	
 	public static OrthographicCamera camera;
 	private SpriteBatch batch;
@@ -28,6 +29,7 @@ public class Driver implements ApplicationListener {
 		camera = new OrthographicCamera(w, h);
 		batch = new SpriteBatch();
 		
+		gravity = new GravityManager();
 		assets = new AssetManager(new Vector2(32, 32));
 		level = new LevelManager();
 	}
