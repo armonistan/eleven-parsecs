@@ -114,11 +114,11 @@ public class Player {
 	}
 	
 	private void calculateVelocity(){
-		playerVelocity.add(playerAcceleration.scl(Gdx.graphics.getRawDeltaTime()));
+		playerVelocity.add(playerAcceleration.scl(Gdx.graphics.getDeltaTime()));
 	}
 	
 	private void calculateChangeInPlayerPosition(){
-		changeInPlayerMovement.add(playerVelocity.scl(Gdx.graphics.getRawDeltaTime()));
+		changeInPlayerMovement.add(playerVelocity.scl(Gdx.graphics.getDeltaTime()));
 	}
 	
 	private void movePlayer(){

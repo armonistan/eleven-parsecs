@@ -11,7 +11,7 @@ public class Main {
 		cfg.width = 480;
 		cfg.height = 480;
 		cfg.resizable = false;
-		
+		cfg.vSyncEnabled = true;
 		new LwjglApplication(new Driver(), cfg);
 	}
 }

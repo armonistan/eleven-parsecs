@@ -14,8 +14,8 @@ public class Resource {
 	private Vector2 futureVelocity;
 	private Vector2 resourceChangeInDistance;
 	
-	final float baseAcceleration = 4;
-	final float MAX_VELOCITY = 10;
+	final float baseAcceleration = 400;
+	final float MAX_VELOCITY = 3;
 
 	public Resource(Vector2 position) {
 		resource = new Sprite(Driver.assets.getAtlasRegion(new Vector2(6, 0)));

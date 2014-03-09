@@ -14,11 +14,12 @@ public class LevelManager {
 	LevelGenerator generator;
 	TiledMap map;
 	public static int mapSize = 1000;
-	public static int playerStartX = mapSize * 32 / 2;
+	public static int mapPxSize = mapSize * 32;
+	public static int playerStartX = mapPxSize / 2;
 	public static int playerStartY = playerStartX;
 	OrthogonalTiledMapRenderer mapRenderer;
 
-	public static int numDestructibles = 100;
+	public static int numDestructibles = 20;
 	
 	public static Player player;
 	public static Base base;
@@ -45,13 +46,15 @@ public class LevelManager {
 		resourcesToDestroy = new LinkedList<Resource>();
 		
 		//temp
-		resources.add(new Resource(new Vector2(64, 64)));
+		resources.add(new Resource(new Vector2(playerStartX + 604, playerStartY + 604)));
 	}
 	
 	public void render(SpriteBatch batch) {
 		mapRenderer.setView(Driver.camera);
 		mapRenderer.render();
 
+		Driver.gravity.ComputeGravity();
+		
 		batch.begin();
 		base.render(batch);
 		player.render(batch);
