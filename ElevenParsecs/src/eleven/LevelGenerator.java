@@ -5,6 +5,7 @@ import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.tiled.*;
@@ -12,6 +13,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.renderers.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
+import com.badlogic.gdx.math.Vector2;
+
 import java.util.*;
 
 public class LevelGenerator {
@@ -20,10 +23,8 @@ public class LevelGenerator {
 	Texture tiles;
 	TileRegion space;
 	TileRegion stars;
-	
-	public TiledMap getMap() {
-		return this.map;
-	}
+	TileRegion destructibles;
+	Random randomGenerator;
 	
 	private class TileRegion {
 		int startX, startY, width, length;
@@ -47,16 +48,24 @@ public class LevelGenerator {
 		
 	}
 	
-	public LevelGenerator(int mapSize) {
+	public LevelGenerator(int mapSize, int numDestructibles) {
 		this.mapSize = mapSize;
 		
 		this.space = new TileRegion(0, 6, 0, 0);
 		this.stars = new TileRegion(1, 6, 1, 1);
+		this.destructibles = new TileRegion(2, 0, 2, 0);
 		
 		this.tiles = new Texture(Gdx.files.internal("data/spriteAtlas.png"));
 		this.map = new TiledMap();
 		
+		this.randomGenerator = new Random();
+		
 		this.RandomizeField();
+		this.RandomizeDestructibles(numDestructibles);
+	}
+	
+	public TiledMap getMap() {
+		return this.map;
 	}
 	
 	private void RandomizeField(){
@@ -86,5 +95,24 @@ public class LevelGenerator {
 		layers.add(spaceLayer);
 		layers.add(starsLayer);
 		
+	}
+
+	private void RandomizeDestructibles(int numDestructibles) {
+		//Driver.gravity.ClearDestructibles();
+		
+		Vector2 destPosition = new Vector2();
+		Vector2 destVelocity = new Vector2(0, 0);
+		Vector2 destImg = new Vector2(0, 0);
+		for (int i = 0; i < numDestructibles; i++) {
+			destPosition.x = Driver.level.playerStartX + randomGenerator.nextFloat() * 1000 - 500;
+			destPosition.y = Driver.level.playerStartY + randomGenerator.nextFloat() * 1000 - 500;
+			
+			//destVelocity.x = randomGenerator.nextFloat() * 100 * (randomGenerator.nextFloat() > .5 ? 1 : -1);
+			//destVelocity.y = randomGenerator.nextFloat() * 100 * (randomGenerator.nextFloat() > .5 ? 1 : -1);
+			
+			destImg.x = destructibles.GetRandomX();
+			
+			Driver.gravity.AddDestructible(new Destructible(destPosition, destImg, destVelocity, 10));
+		}
 	}
 }

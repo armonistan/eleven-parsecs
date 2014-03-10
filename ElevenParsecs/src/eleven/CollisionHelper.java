@@ -5,9 +5,13 @@ import com.badlogic.gdx.math.*;
 
 public class CollisionHelper {
 	public static boolean checkCollide(Sprite caller, Sprite calledByCaller){
-		float distance = (float)Math.sqrt(Math.pow(caller.getX() - calledByCaller.getX(), 2) + 
-				Math.pow(caller.getY() - calledByCaller.getY(), 2));
+		float dist = distance(new Vector2(caller.getX(), caller.getY()), 
+				new Vector2(calledByCaller.getX(), calledByCaller.getY()));
 		
-		return (distance < 30);
+		return (dist < 30);
+	}
+	
+	public static float distance(Vector2 position1, Vector2 position2) {
+		return position1.dst(position2);
 	}
 }

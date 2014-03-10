@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g3d.shaders.DefaultShader.Config;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
@@ -16,18 +17,20 @@ public class Driver implements ApplicationListener {
 	//Static members
 	public static AssetManager assets;
 	public static LevelManager level;
+	public static GravityManager gravity;
 	
 	public static OrthographicCamera camera;
 	private SpriteBatch batch;
 	
 	@Override
-	public void create() {		
+	public void create() {
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 		
 		camera = new OrthographicCamera(w, h);
 		batch = new SpriteBatch();
 		
+		gravity = new GravityManager();
 		assets = new AssetManager(new Vector2(32, 32));
 		level = new LevelManager();
 	}

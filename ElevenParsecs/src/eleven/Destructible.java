@@ -44,6 +44,14 @@ public class Destructible {
 		listOfForces.add(newForce);
 	}
 	
+	public Vector2 GetPosition() {
+		return new Vector2(destructible.getX(), destructible.getY());
+	}
+	
+	public float GetMass() {
+		return this.destructibleMass;
+	}
+	
 	private void update(){
 		calculateForceOnDestructible();
 		calculateAcceleration();
@@ -64,11 +72,11 @@ public class Destructible {
 	}
 	
 	private void calculateVelocity(){
-		destructibleVelocity.add(destructibleAcceleration.scl(Gdx.graphics.getRawDeltaTime()));
+		destructibleVelocity.add(destructibleAcceleration.scl(Gdx.graphics.getDeltaTime()));
 	}
 	
 	private void calculateChangeInMovement(){
-		changeInDestructibleMovement.add(destructibleVelocity.scl(Gdx.graphics.getRawDeltaTime()));
+		changeInDestructibleMovement.add(destructibleVelocity.scl(Gdx.graphics.getDeltaTime()));
 	}
 	
 	private void moveDestructible(){
