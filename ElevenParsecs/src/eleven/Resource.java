@@ -18,7 +18,7 @@ public class Resource {
 	final float MAX_VELOCITY = 10;
 
 	public Resource(Vector2 position) {
-		resource = new Sprite(Driver.assets.getAtlasRegion(new Vector2(6, 0)));
+		resource = new Sprite(Driver.assets.getAtlasRegion(new Vector2(6, 0)));//keep in mind the asset num
 		resource.setPosition(position.x, position.y);
 		player = Driver.level.player;
 		resourceAcceleration = new Vector2();
