@@ -114,7 +114,7 @@ public class LevelGenerator {
 			
 			destImg.x = destructibles.GetRandomX();
 			
-			Driver.level.destructibles.add(new Destructible(destPosition, destImg, destVelocity, 10));
+			Driver.level.destructibles.add(new Destructible(destPosition.x, destPosition.y, destImg.x, destImg.y, destVelocity.x, destVelocity.y, 10));
 		}
 	}
 }

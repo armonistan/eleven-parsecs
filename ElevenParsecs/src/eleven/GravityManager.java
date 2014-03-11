@@ -22,16 +22,16 @@ public class GravityManager {
 			
 			for (Destructible d2 : Driver.level.destructibles) {
 				if (d1 != d2) {
-					dist = CollisionHelper.distanceSquared(d1.GetPosition(), d2.GetPosition());
+					dist = CollisionHelper.distanceSquared(d1.getPosition(), d2.getPosition());
 					if (dist > 1) {
 						direction = d2.getPosition().sub(d1.getPosition()).nor();
-						force = (g * d1.GetMass() * d2.GetMass()) / dist;
+						force = (g * d1.getMass() * d2.getMass()) / dist;
 						combinedForce.add(direction.scl(force));
 					}
 				}
 			}
 			
-			d1.addForce(combinedForce);
+			d1.addForceToPhysicsObject(combinedForce);
 		}	
 	}
 }

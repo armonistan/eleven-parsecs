@@ -14,17 +14,14 @@ public class CollisionHelper {
 	public static float getDistance(Vector2 position1, Vector2 position2) {
 		return position1.dst(position2);
 	}
-	
-	public static boolean checkCollideSAT(Polygon caller, Polygon calledByCaller){
-		getClosestCornerToOtherPolygon(caller, calledByCaller);
-	public static float distanceSquared(Vector2 position1, Vector2 position2) {
-		return position1.dst2(position2);
-		
-		return false;
-	}
+
 	
 	private static Vector2 getDeltaVectorFromAToB(Vector2 a, Vector2 b){
 		return a.sub(b);
+	}
+	
+	public static float distanceSquared(Vector2 a, Vector2 b){
+		return a.dst2(b);
 	}
 	
 	private static Vector2 getClosestCornerToOtherPolygon(Polygon caller, Polygon calledByCaller){
