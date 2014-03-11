@@ -60,7 +60,8 @@ public class Destructible {
 		for (int i = 0; i < this.destructibleMass; i++) {
 			Driver.level.AddResource(destructible.getX() - 10 + newRand.nextFloat() * 20, destructible.getY() - 10 + newRand.nextFloat() * 10);
 		}
-		Driver.gravity.RemoveDestructible(this);
+		
+		Driver.level.destructiblesToDestroy.add(this);
 	}
 	
 	private void update(){

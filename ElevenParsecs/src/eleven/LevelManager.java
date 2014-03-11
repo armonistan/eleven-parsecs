@@ -75,7 +75,6 @@ public class LevelManager {
 		for (Destructible d : destructibles) {
 			d.render(batch);
 		}
-		Driver.gravity.CollectDestructibles();
 		for (Destructible d : destructiblesToDestroy) {
 			destructibles.remove(d);
 		}
