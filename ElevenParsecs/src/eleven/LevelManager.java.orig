@@ -75,10 +75,15 @@ public class LevelManager {
 		for (Destructible d : destructibles) {
 			d.render(batch);
 		}
+<<<<<<< HEAD
 		for (Destructible d : destructiblesToDestroy) {
 			destructibles.remove(d);
 		}
 		destructiblesToDestroy.clear();
+				
+=======
+		Driver.gravity.CollectDestructibles();
+>>>>>>> ElevenBucket/dev
 		//TODO: Update asteroids (and the like)
 		batch.end();
 		

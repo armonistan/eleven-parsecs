@@ -8,7 +8,7 @@ public class CollisionHelper {
 		float dist = getDistance(new Vector2(caller.getX(), caller.getY()), 
 				new Vector2(calledByCaller.getX(), calledByCaller.getY()));
 		
-		return (dist < 30);
+		return (dist < 40);
 	}
 	
 	public static float getDistance(Vector2 position1, Vector2 position2) {
@@ -17,6 +17,8 @@ public class CollisionHelper {
 	
 	public static boolean checkCollideSAT(Polygon caller, Polygon calledByCaller){
 		getClosestCornerToOtherPolygon(caller, calledByCaller);
+	public static float distanceSquared(Vector2 position1, Vector2 position2) {
+		return position1.dst2(position2);
 		
 		return false;
 	}

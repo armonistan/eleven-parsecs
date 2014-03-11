@@ -1,46 +1,37 @@
 package eleven;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import com.badlogic.gdx.math.Vector2;
 
 public class GravityManager {
-
-	ArrayList<Destructible> destructibles;
-	public static float g = 1000f;
+	public static float g = 100f;
 	
 	public GravityManager() {
-		this.destructibles = new ArrayList<Destructible>();
-	}
-	
-	public void ClearDestructibles() {
-		this.destructibles.clear();
 	}
 	
 	public void ComputeGravity() {
 		float dist, force;
 		Vector2 direction = new Vector2();
-		for (Destructible d1 : this.destructibles) {
-			for (Destructible d2 : this.destructibles) {
+		
+		for (Destructible d1 : Driver.level.destructibles) {
 				//temp
 				//CollisionHelper.checkCollideSAT(d1.getPolygon(), d2.getPolygon());
-				if (!d1.equals(d2)) {
-					dist = CollisionHelper.getDistance(d1.getPosition2(), d2.getPosition2());
+			Vector2 combinedForce = new Vector2();
+			
+			for (Destructible d2 : Driver.level.destructibles) {
+				if (d1 != d2) {
+					dist = CollisionHelper.distanceSquared(d1.GetPosition(), d2.GetPosition());
 					if (dist > 1) {
 						direction = d2.getPosition().sub(d1.getPosition()).nor();
-						force = (g * d1.getMass() * d2.getMass()) / (dist * dist);
-						d1.addForceToPhysicsObject(direction.scl(force));
+						force = (g * d1.GetMass() * d2.GetMass()) / dist;
+						combinedForce.add(direction.scl(force));
 					}
 				}
 			}
-		}
-	}
-	
-	public void AddDestructible(Destructible newDestructible) {
-		this.destructibles.add(newDestructible);
-	}
-	
-	public ArrayList<Destructible> GetDestructibles() {
-		return this.destructibles;
+			
+			d1.addForce(combinedForce);
+		}	
 	}
 }
