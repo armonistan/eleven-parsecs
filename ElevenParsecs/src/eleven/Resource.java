@@ -14,7 +14,7 @@ public class Resource {
 	private Vector2 futureVelocity;
 	private Vector2 resourceChangeInDistance;
 	
-	final float baseAcceleration = 400;
+	final float baseAcceleration = 100;
 	final float MAX_VELOCITY = 3;
 
 	public Resource(Vector2 position) {
@@ -53,19 +53,20 @@ public class Resource {
 	
 	private void setRotation(){
 		float deltaXOfResourceToPlayer = player.getSprite().getX() - resource.getX();
-		float deltaYOfResourceToPlayer = player.getSprite().getY() - resource.getY();		
+		float deltaYOfResourceToPlayer = player.getSprite().getY() - resource.getY();
 		float radian = MathUtils.atan2(deltaYOfResourceToPlayer, deltaXOfResourceToPlayer);
 		
 		resource.setRotation(MathUtils.radiansToDegrees * radian);
 	}
 	
 	private void calculateAcceleration(){
+		
+		float distAcceleration = baseAcceleration * 1/(1);
 		resourceAcceleration.add(new Vector2(baseAcceleration * MathUtils.cosDeg(resource.getRotation()),
 				baseAcceleration * MathUtils.sinDeg(resource.getRotation())));
 	}
 	
 	private void calculateVelocity(){
-		
 		resourceVelocity.add(resourceAcceleration.scl(Gdx.graphics.getRawDeltaTime()));
 	}
 	

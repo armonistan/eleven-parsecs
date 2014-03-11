@@ -6,11 +6,24 @@ import java.util.LinkedList;
 import com.badlogic.gdx.math.Vector2;
 
 public class GravityManager {
+<<<<<<< HEAD
+	public static float g = 1000f;
+	
+	public GravityManager() {
+=======
+
+	ArrayList<Destructible> destructibles;
 	LinkedList<Destructible> destructiblesToRemove;
 	public static float g = 100f;
 	
 	public GravityManager() {
+		this.destructibles = new ArrayList<Destructible>();
 		this.destructiblesToRemove = new LinkedList<Destructible>();
+	}
+	
+	public void ClearDestructibles() {
+		this.destructibles.clear();
+>>>>>>> ElevenBucket/dev
 	}
 	
 	public void ComputeGravity() {
@@ -33,10 +46,20 @@ public class GravityManager {
 			
 			d1.addForce(combinedForce);
 		}
+	}
+<<<<<<< HEAD
+=======
+	
+	public void AddDestructible(Destructible newDestructible) {
+		this.destructibles.add(newDestructible);
+	}
+	
 	public void RemoveDestructible(Destructible destroy) {
 		this.destructiblesToRemove.add(destroy);
 	}
 	
+	public ArrayList<Destructible> GetDestructibles() {
+		return this.destructibles;
 	}
 	
 	public LinkedList<Destructible> GetDestructiblesToRemove() {
@@ -49,4 +72,5 @@ public class GravityManager {
 		}
 		this.destructiblesToRemove.clear();
 	}
+>>>>>>> ElevenBucket/dev
 }
