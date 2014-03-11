@@ -62,6 +62,8 @@ public class LevelGenerator {
 		
 		this.RandomizeField();
 		this.RandomizeDestructibles(numDestructibles);
+		
+		System.gc();
 	}
 	
 	public TiledMap getMap() {
@@ -112,7 +114,7 @@ public class LevelGenerator {
 			
 			destImg.x = destructibles.GetRandomX();
 			
-			Driver.gravity.AddDestructible(new Destructible(destPosition, destImg, destVelocity, 10));
+			Driver.level.destructibles.add(new Destructible(destPosition, destImg, destVelocity, 10));
 		}
 	}
 }

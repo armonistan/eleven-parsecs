@@ -36,14 +36,18 @@ public class LevelManager {
 		player = new Player(playerStartX, playerStartY);
 		Driver.camera.position.x = playerStartX;
 		Driver.camera.position.y = playerStartY;
-		generator = new LevelGenerator(this.mapSize, this.numDestructibles);
-		map = generator.getMap();
-		mapRenderer = new OrthogonalTiledMapRenderer(map, 1);
 
 		base = new Base(new Vector2(playerStartX, playerStartY));
 
 		resources = new ArrayList<Resource>();
 		resourcesToDestroy = new LinkedList<Resource>();
+		
+		destructibles = new ArrayList<Destructible>(numDestructibles);
+		destructiblesToDestroy = new LinkedList<Destructible>();
+		
+		generator = new LevelGenerator(this.mapSize, this.numDestructibles);
+		map = generator.getMap();
+		mapRenderer = new OrthogonalTiledMapRenderer(map, 1);
 		
 		//temp
 		resources.add(new Resource(new Vector2(playerStartX + 604, playerStartY + 604)));
@@ -67,11 +71,16 @@ public class LevelManager {
 			resources.remove(r);
 		}
 		resourcesToDestroy.clear();
+		
 		//Manage the destructibles
 		//TODO: added provisions for destructibles making destructibles
-		for (Destructible d : Driver.gravity.GetDestructibles()) {
+		for (Destructible d : destructibles) {
 			d.render(batch);
 		}
+		for (Destructible d : destructiblesToDestroy) {
+			destructibles.remove(d);
+		}
+		destructiblesToDestroy.clear();
 				
 		//TODO: Update asteroids (and the like)
 		batch.end();

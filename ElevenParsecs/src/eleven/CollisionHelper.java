@@ -14,4 +14,8 @@ public class CollisionHelper {
 	public static float distance(Vector2 position1, Vector2 position2) {
 		return position1.dst(position2);
 	}
+	
+	public static float distanceSquared(Vector2 position1, Vector2 position2) {
+		return position1.dst2(position2);
+	}
 }
