@@ -61,6 +61,9 @@ public class Player extends PhysicsObject{
 	public void addResource(){
 		numResourcesGathered++;
 	}
+	public int getResourcesAmt(){
+		return numResourcesGathered;
+	}
 	
 	public int depositResources(){
 		int passedNumResourcesGathered = numResourcesGathered;

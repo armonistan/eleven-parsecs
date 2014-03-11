@@ -18,9 +18,12 @@ public class Driver implements ApplicationListener {
 	public static AssetManager assets;
 	public static LevelManager level;
 	public static GravityManager gravity;
+	public static GUI gui;//BB
 	
 	public static OrthographicCamera camera;
+	public static OrthographicCamera guicamera;
 	private SpriteBatch batch;
+	//private SpriteBatch txtbatch;//BB
 	
 	@Override
 	public void create() {
@@ -28,11 +31,13 @@ public class Driver implements ApplicationListener {
 		float h = Gdx.graphics.getHeight();
 		
 		camera = new OrthographicCamera(w, h);
+		guicamera = new OrthographicCamera(w,h);//BB
 		batch = new SpriteBatch();
 		
 		gravity = new GravityManager();
 		assets = new AssetManager(new Vector2(32, 32));
 		level = new LevelManager();
+		gui = new GUI();
 	}
 
 	@Override
@@ -51,10 +56,15 @@ public class Driver implements ApplicationListener {
 		camera.position.x = lerped.x;
 		camera.position.y = lerped.y;
 		camera.update();
-		
+		//Set the GUI camera position
+		guicamera.position.x = 0;
+		guicamera.position.y = 0;
+		guicamera.update();		
 		//Set the camera to our camera.
 		batch.setProjectionMatrix(camera.combined);
 		level.render(batch);
+		batch.setProjectionMatrix(guicamera.combined);//BB
+		gui.render(batch);//BB
 	}
 
 	@Override
