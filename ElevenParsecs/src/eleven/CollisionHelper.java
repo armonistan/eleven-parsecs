@@ -8,7 +8,7 @@ public class CollisionHelper {
 		float dist = distance(new Vector2(caller.getX(), caller.getY()), 
 				new Vector2(calledByCaller.getX(), calledByCaller.getY()));
 		
-		return (dist < 30);
+		return (dist < 40);
 	}
 	
 	public static float distance(Vector2 position1, Vector2 position2) {

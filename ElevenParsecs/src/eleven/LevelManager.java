@@ -31,8 +31,6 @@ public class LevelManager {
 	public static LinkedList<Destructible> destructiblesToDestroy;
 	
 	public LevelManager() {
-		//TODO: Generate background
-		//TODO: Generate asteroids
 		player = new Player(playerStartX, playerStartY);
 		Driver.camera.position.x = playerStartX;
 		Driver.camera.position.y = playerStartY;
@@ -72,9 +70,14 @@ public class LevelManager {
 		for (Destructible d : Driver.gravity.GetDestructibles()) {
 			d.render(batch);
 		}
-				
+		Driver.gravity.CollectDestructibles();
 		//TODO: Update asteroids (and the like)
 		batch.end();
 		
+	}
+	
+	public void AddResource(float x, float y) {
+		Resource newRes = new Resource(new Vector2(x, y));
+		resources.add(newRes);
 	}
 }

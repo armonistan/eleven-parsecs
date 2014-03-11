@@ -1,6 +1,7 @@
 package eleven;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Destructible {
 	
 	private Sprite destructible;
+	private Random newRand;
 	
 	private LinkedList<Vector2> listOfForces;
 	
@@ -33,6 +35,8 @@ public class Destructible {
 		changeInDestructibleMovement = new Vector2();
 		
 		destructibleMass = mass;
+		
+		newRand = new Random();
 	}
 	
 	public void render(SpriteBatch spriteBatch){
@@ -52,6 +56,13 @@ public class Destructible {
 		return this.destructibleMass;
 	}
 	
+	public void Destroy() {
+		for (int i = 0; i < this.destructibleMass; i++) {
+			Driver.level.AddResource(destructible.getX() - 10 + newRand.nextFloat() * 20, destructible.getY() - 10 + newRand.nextFloat() * 10);
+		}
+		Driver.gravity.RemoveDestructible(this);
+	}
+	
 	private void update(){
 		calculateForceOnDestructible();
 		calculateAcceleration();
@@ -59,6 +70,10 @@ public class Destructible {
 		calculateChangeInMovement();
 		moveDestructible();
 		clearListOfForces();
+		
+		if (newRand.nextFloat() > .999) {
+			//this.Destroy();
+		}
 	}
 	
 	private void calculateForceOnDestructible(){
