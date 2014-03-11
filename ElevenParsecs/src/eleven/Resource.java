@@ -25,6 +25,7 @@ public class Resource {
 		resourceVelocity = new Vector2();
 		futureVelocity = new Vector2();
 		resourceChangeInDistance = new Vector2();
+		
 	}
 	
 	public void render(SpriteBatch batch) {

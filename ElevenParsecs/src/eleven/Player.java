@@ -8,13 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.*;
 
-public class Player {
-	private Sprite ship;
-	private LinkedList<Vector2> listOfForces;
-	private Vector2 forceOnPlayer;
-	private Vector2 playerAcceleration;
-	private Vector2 playerVelocity;
-	private Vector2 changeInPlayerMovement;
+public class Player extends PhysicsObject{
 	private int numResourcesGathered;
 	//movement vectors
 	Vector2 forward; 
@@ -29,104 +23,39 @@ public class Player {
 	//TODO: Add shooting variables
 	
 	public Player(int x, int y) {
-		//TODO: Set init position
-		ship = new Sprite(Driver.assets.getAtlasRegion(new Vector2(0, 0)));
-		ship.setPosition(x, y);
-		listOfForces = new LinkedList<Vector2>();
-		forceOnPlayer = new Vector2();
-		playerAcceleration = new Vector2();
-		playerVelocity = new Vector2();
-		changeInPlayerMovement = new Vector2();
+		super(x, y, 10, 0, 0);
 		numResourcesGathered = 0;
 	}
 
-	public void render(SpriteBatch batch) {
-		//TODO: Add movement logic
-		update();
-		ship.draw(batch);
-	}
-	
-	public Vector3 getPosition3() {
-		return new Vector3(ship.getOriginX() + ship.getX(), ship.getOriginY() + ship.getY(), 0);
-	}
-	
-	public Vector2 getPosition2() {
-		return new Vector2(ship.getOriginX() + ship.getX(), ship.getOriginY() + ship.getY());
-	}
-	
 	//player update method
-	private void update(){
+	@Override
+	protected void update(){
 		calculateEngineForces();
 		checkInput();
-		sumForcesOnPlayer();
-		calculateAcceleration();
-		calculateVelocity();
-		calculateChangeInPlayerPosition();
-		movePlayer();
-		clearForcesOnPlayer();
-		resetForceOnPlayer();
+		super.update();
 	}
 	
 	private void calculateEngineForces(){
-		forward = new Vector2(engineForce *  MathUtils.cosDeg(ship.getRotation()), 
-				engineForce *  MathUtils.sinDeg(ship.getRotation()));
-		backward = new Vector2(-1*engineForce *  MathUtils.cosDeg(ship.getRotation()), 
-				-1*engineForce *  MathUtils.sinDeg(ship.getRotation()));
+		forward = new Vector2(engineForce *  MathUtils.cosDeg(physicsObject.getRotation()), 
+				engineForce *  MathUtils.sinDeg(physicsObject.getRotation()));
+		backward = new Vector2(-1*engineForce *  MathUtils.cosDeg(physicsObject.getRotation()), 
+				-1*engineForce *  MathUtils.sinDeg(physicsObject.getRotation()));
 	}
 	
 	//method that checks for player input
 	private void checkInput(){
 		if(Gdx.input.isKeyPressed(Keys.W)){
-			addForceToPlayer(forward);
+			addForceToPhysicsObject(forward);
 		}
 		if(Gdx.input.isKeyPressed(Keys.A)){
 			changeRotation(LEFT);
 		}
 		if(Gdx.input.isKeyPressed(Keys.S)){
-			addForceToPlayer(backward);
+			addForceToPhysicsObject(backward);
 		}
 		if(Gdx.input.isKeyPressed(Keys.D)){
 			changeRotation(RIGHT);
 		}
-	}
-	
-	//takes all forces and adds them up
-	private void sumForcesOnPlayer(){
-		for(Vector2 force: listOfForces){
-			forceOnPlayer.add(force);
-		}
-	}
-	
-	private void resetForceOnPlayer(){
-		forceOnPlayer = new Vector2(0,0);
-	}
-	
-	public void addForceToPlayer(Vector2 newForce){
-		listOfForces.add(newForce);
-	}
-	
-	private void clearForcesOnPlayer(){
-		listOfForces.clear();
-	}
-
-	private void calculateAcceleration(){
-		playerAcceleration.add(forceOnPlayer.div(playerMass));
-	}
-	
-	private void calculateVelocity(){
-		playerVelocity.add(playerAcceleration.scl(Gdx.graphics.getDeltaTime()));
-	}
-	
-	private void calculateChangeInPlayerPosition(){
-		changeInPlayerMovement.add(playerVelocity.scl(Gdx.graphics.getDeltaTime()));
-	}
-	
-	private void movePlayer(){
-		ship.setPosition(ship.getX() + changeInPlayerMovement.x, ship.getY() + changeInPlayerMovement.y);
-	}
-	
-	private void changeRotation(float changeInDegrees){
-		ship.setRotation(ship.getRotation() + changeInDegrees);
 	}
 	
 	public void addResource(){
@@ -139,9 +68,5 @@ public class Player {
 		
 		return passedNumResourcesGathered;
 	}
-	
-	//getters and setters
-	public Sprite getSprite(){
-		return ship;
-	}
+
 }

@@ -22,12 +22,14 @@ public class GravityManager {
 		Vector2 direction = new Vector2();
 		for (Destructible d1 : this.destructibles) {
 			for (Destructible d2 : this.destructibles) {
+				//temp
+				//CollisionHelper.checkCollideSAT(d1.getPolygon(), d2.getPolygon());
 				if (!d1.equals(d2)) {
-					dist = CollisionHelper.distance(d1.GetPosition(), d2.GetPosition());
+					dist = CollisionHelper.getDistance(d1.getPosition2(), d2.getPosition2());
 					if (dist > 1) {
-						direction = d2.GetPosition().sub(d1.GetPosition()).nor();
-						force = (g * d1.GetMass() * d2.GetMass()) / (dist * dist);
-						d1.addForce(direction.scl(force));
+						direction = d2.getPosition().sub(d1.getPosition()).nor();
+						force = (g * d1.getMass() * d2.getMass()) / (dist * dist);
+						d1.addForceToPhysicsObject(direction.scl(force));
 					}
 				}
 			}
