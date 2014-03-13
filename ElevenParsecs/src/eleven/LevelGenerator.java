@@ -25,6 +25,7 @@ public class LevelGenerator {
 	TileRegion stars;
 	TileRegion destructibles;
 	Random randomGenerator;
+	float radius;
 	
 	private class TileRegion {
 		int startX, startY, width, length;
@@ -50,6 +51,7 @@ public class LevelGenerator {
 	
 	public LevelGenerator(int mapSize, int numDestructibles) {
 		this.mapSize = mapSize;
+		this.radius = 500;
 		
 		this.space = new TileRegion(0, 6, 0, 0);
 		this.stars = new TileRegion(1, 6, 1, 1);
@@ -105,6 +107,20 @@ public class LevelGenerator {
 		Vector2 destPosition = new Vector2();
 		Vector2 destVelocity = new Vector2(0, 0);
 		Vector2 destImg = new Vector2(0, 0);
+		
+		for (int i = 0; i < 360; i++) {
+			destPosition.x = (float) (Driver.level.playerStartX + (Math.cos(i) * this.radius));
+			destPosition.y = (float) (Driver.level.playerStartY + (Math.sin(i) * this.radius));
+			
+			destVelocity.x = (float) (Math.sin(destPosition.x) * 5);
+			destVelocity.y = (float) (Math.cos(destPosition.y) * 5);
+			
+			destImg.x = destructibles.GetRandomX();
+			
+			Driver.level.destructibles.add(new Destructible(destPosition.x, destPosition.y, destImg.x, destImg.y, destVelocity.x, destVelocity.y, 10));
+		}
+		
+		/*
 		for (int i = 0; i < numDestructibles; i++) {
 			destPosition.x = Driver.level.playerStartX + randomGenerator.nextFloat() * 1000 - 500;
 			destPosition.y = Driver.level.playerStartY + randomGenerator.nextFloat() * 1000 - 500;
@@ -116,5 +132,6 @@ public class LevelGenerator {
 			
 			Driver.level.destructibles.add(new Destructible(destPosition.x, destPosition.y, destImg.x, destImg.y, destVelocity.x, destVelocity.y, 10));
 		}
+		*/
 	}
 }
