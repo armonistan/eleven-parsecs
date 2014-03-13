@@ -32,6 +32,6 @@ public class GravityManager {
 			}
 			
 			d1.addForceToPhysicsObject(combinedForce);
-		}	
+		}
 	}
 }
