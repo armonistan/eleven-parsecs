@@ -108,15 +108,17 @@ public class LevelGenerator {
 		Vector2 destVelocity = new Vector2(0, 0);
 		Vector2 destImg = new Vector2(0, 0);
 		
+		float deg2Rad = (float) (Math.PI / 180);
+		
 		for (int i = 0; i < 360; i++) {
-			if (i % 20 == 0) {
-				destPosition.x = (float) (Driver.level.playerStartX + (Math.cos(i) * this.radius));
-				destPosition.y = (float) (Driver.level.playerStartY + (Math.sin(i) * this.radius));
+			if (i % 7 == 0) {
+				destPosition.x = (float) (Driver.level.playerStartX + (Math.cos(i * deg2Rad) * this.radius));
+				destPosition.y = (float) (Driver.level.playerStartY + (Math.sin(i * deg2Rad) * this.radius));
+				
+				destVelocity.x = (destPosition.y - Driver.level.playerStartY);
+				destVelocity.y = -(destPosition.x - Driver.level.playerStartX);
 
-				destVelocity.x = (float) (Math.sin(destPosition.y) * 5);
-				destVelocity.y = (float) -(Math.cos(destPosition.x) * 5);
-
-				destVelocity.nor().scl(50);
+				destVelocity.nor().scl(600);
 
 				destImg.x = destructibles.GetRandomX();
 
