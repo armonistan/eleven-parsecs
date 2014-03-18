@@ -19,7 +19,7 @@ public class LevelManager {
 	public static int playerStartY = playerStartX;
 	OrthogonalTiledMapRenderer mapRenderer;
 
-	public static int numDestructibles = 20;
+	public static int numDestructibles = 200;
 	
 	public static Player player;
 	public static Base base;

@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import com.badlogic.gdx.math.Vector2;
 
 public class GravityManager {
-	public static float g = 100f;
+	public static float g = 1000f;
 	
 	public GravityManager() {
 	}

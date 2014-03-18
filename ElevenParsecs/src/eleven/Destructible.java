@@ -26,9 +26,12 @@ public class Destructible extends PhysicsObject{
 		}
 		
 		Driver.level.destructiblesToDestroy.add(this);
-		
+	}
+	
+	@Override
+	public void ObjectUpdate() {
 		if (newRand.nextFloat() > .999) {
-			//this.Destroy();
+			// this.Destroy();
 		}
 	}
 }
