@@ -37,15 +37,16 @@ public class PhysicsObject {
 		
 		physicsObjectMass = mass;
 		
-		physicsObjectPolygon = new Polygon();
-		physicsObjectPolygon.setOrigin(this.getPosition2().x, this.getPosition2().y);
-		
 		position2 = new Vector2();
 		position2.set(physicsObject.getX(), physicsObject.getY());
 		originPosition = new Vector2();
 		originPosition.set(position2.x + physicsObject.getOriginX(), position2.y + physicsObject.getOriginY());
 		position3 = new Vector3();
 		position3.set(position2, 0);
+		
+		physicsObjectPolygon = new Polygon();
+		physicsObjectPolygon.setOrigin(this.getPosition2().x, this.getPosition2().y);
+		
 	}
 	
 	protected float[] setPhysicsObjectPolygonVertices(int image){

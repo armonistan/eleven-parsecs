@@ -70,7 +70,11 @@ public class CollisionHelper {
 	public static float getDistance(Vector2 position1, Vector2 position2) {
 		return position1.dst(position2);
 	}
-		
+<<<<<<< HEAD
+
+=======
+	
+>>>>>>> 243797e780663c4faacb381824714d4ff7df1d1d
 	public static float distanceSquared(Vector2 a, Vector2 b){
 		return a.dst2(b);
 	}

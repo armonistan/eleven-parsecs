@@ -17,13 +17,19 @@ public class PhysicsObject {
 	protected Vector2 physicsObjectVelocity;
 	protected Vector2 physicsObjectChangeInDistance;
 	
-	protected LinkedList<Vector2> listOfForces;
-	
 	protected float physicsObjectMass;
 	
+	private Vector2 position2;
+	private Vector2 originPosition;
+	private Vector3 position3;
+	
 	public PhysicsObject(float initialX, float initialY, float mass, 
+<<<<<<< HEAD
 			float regionX, float regionY, float intialVelocityX, float intialVelocityY){
 		listOfForces = new LinkedList<Vector2>();
+=======
+			float regionX, float regionY){
+>>>>>>> 243797e780663c4faacb381824714d4ff7df1d1d
 		
 		forceOnPhysicsObject = new Vector2();
 		physicsObjectAcceleration = new Vector2();
@@ -37,7 +43,19 @@ public class PhysicsObject {
 		physicsObjectMass = mass;
 		
 		physicsObjectPolygon = new Polygon();
+<<<<<<< HEAD
 		physicsObjectPolygon.setOrigin(this.getPosition2().x, this.getPosition2().y);
+=======
+		//physicsObjectPolygon.setOrigin(physicsObject.getOriginX(), physicsObject.getOriginY());
+		//physicsObjectPolygon.setVertices(setPhysicsObjectPolygonVertices());
+		
+		position2 = new Vector2();
+		position2.set(physicsObject.getX(), physicsObject.getY());
+		originPosition = new Vector2();
+		originPosition.set(position2.x + physicsObject.getOriginX(), position2.y + physicsObject.getOriginY());
+		position3 = new Vector3();
+		position3.set(position2, 0);
+>>>>>>> 243797e780663c4faacb381824714d4ff7df1d1d
 	}
 	
 	protected float[] setPhysicsObjectPolygonVertices(int image){
@@ -51,35 +69,31 @@ public class PhysicsObject {
 		physicsObject.draw(batch);
 	}
 	
+	//TODO: Remove new Vector2's
 	public Vector3 getPosition3() {
-		return new Vector3(physicsObject.getOriginX() + physicsObject.getX(), physicsObject.getOriginY() + physicsObject.getY(), 0);
+		return position3;
 	}
 	
-	public Vector2 getPosition2() {
-		return new Vector2(physicsObject.getOriginX() + physicsObject.getX(), physicsObject.getOriginY() + physicsObject.getY());
+	public Vector2 getOriginPosition() {
+		return originPosition;
 	}
 	
-	public Vector2 getPosition(){
-		return new Vector2(physicsObject.getX(), physicsObject.getY());
+	public Vector2 getPosition2(){
+		return position2;
 	}
 	
-<<<<<<< HEAD
-	//update method
-=======
 	protected void ObjectUpdate() {
 		
 	}
 	
-	//player update method
->>>>>>> 8b8360be85034293829ccd1e6fa75fcb49487b19
+	//update method
 	protected void update(){
-		sumForcesOnPhysicsObject();
 		calculateAcceleration();
 		calculateVelocity();
 		calculateChangeInPlayerPosition();
 		movePhysicsObject();
-		clearForcesOnPhysicsObject();
 		resetForceOnPhysicsObject();
+<<<<<<< HEAD
 		updatePolygon();
 	}
 	
@@ -100,11 +114,11 @@ public class PhysicsObject {
 		this.setVelocity(thisFinalVelocity);
 		this.setAcceleration(new Vector2(0,0));
 		this.setChangeInDistance(new Vector2(0,0));
-		this.setPosition(this.getPosition().add(thisFinalVelocity));
-		other.setVelocity(otherFinalVelocity.scl(30));
+		//this.setPosition(this.getPosition().add(thisFinalVelocity));
+		other.setVelocity(otherFinalVelocity);
 		other.setAcceleration(new Vector2(0,0));
 		other.setChangeInDistance(new Vector2(0,0));
-		other.setPosition(other.getPosition().add(otherFinalVelocity.div(10)));
+		//other.setPosition(other.getPosition().add(otherFinalVelocity.div(10)));
 	}
 	
 	protected void setVelocity(Vector2 newVelocity){
@@ -139,29 +153,31 @@ public class PhysicsObject {
 		for(Vector2 force: listOfForces){
 			forceOnPhysicsObject.add(force);
 		}
+=======
+		
+		position2.set(physicsObject.getX(), physicsObject.getY());
+		originPosition.set(position2.x + physicsObject.getOriginX(), position2.y + physicsObject.getOriginY());
+		position3.set(position2, 0);
+>>>>>>> 243797e780663c4faacb381824714d4ff7df1d1d
 	}
 	
 	private void resetForceOnPhysicsObject(){
-		forceOnPhysicsObject = new Vector2(0,0);
+		forceOnPhysicsObject.set(0, 0);
 	}
 	
-	public void addForceToPhysicsObject(Vector2 newForce){
-		listOfForces.add(newForce);
-	}
-	
-	protected void clearForcesOnPhysicsObject(){
-		listOfForces.clear();
+	public void addForceToPhysicsObject(float x, float y){
+		forceOnPhysicsObject.add(x, y);
 	}
 
 	protected void calculateAcceleration(){
-		physicsObjectAcceleration.add(forceOnPhysicsObject.div(physicsObjectMass));
+		physicsObjectAcceleration.set(new Vector2(forceOnPhysicsObject.x/(physicsObjectMass), forceOnPhysicsObject.y/(physicsObjectMass)));
 	}
 	protected void calculateVelocity(){
-		physicsObjectVelocity.add(physicsObjectAcceleration.scl(Gdx.graphics.getDeltaTime()));
+		physicsObjectVelocity.add(new Vector2(physicsObjectAcceleration.x * Gdx.graphics.getDeltaTime(), physicsObjectAcceleration.y * Gdx.graphics.getDeltaTime()));
 	}
 	
 	protected void calculateChangeInPlayerPosition(){
-		physicsObjectChangeInDistance.add(new Vector2(physicsObjectVelocity.x * Gdx.graphics.getDeltaTime(), physicsObjectVelocity.y));
+		physicsObjectChangeInDistance.set(new Vector2(physicsObjectVelocity.x * Gdx.graphics.getDeltaTime(), physicsObjectVelocity.y * Gdx.graphics.getDeltaTime()));
 	}
 	
 	protected void movePhysicsObject(){
