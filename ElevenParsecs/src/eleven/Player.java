@@ -14,7 +14,6 @@ public class Player extends PhysicsObject{
 	Vector2 forward; 
 	Vector2 backward;
 	
-	
 	//constants
 	final float engineForce = 1000;
 	final float playerMass = 10;
@@ -25,6 +24,8 @@ public class Player extends PhysicsObject{
 	public Player(int x, int y) {
 		super(x, y, 10, 0, 0, 0, 0);
 		numResourcesGathered = 0;
+		forward =  new Vector2();
+		backward = new Vector2();
 	}
 
 	//player update method
@@ -36,22 +37,22 @@ public class Player extends PhysicsObject{
 	}
 	
 	private void calculateEngineForces(){
-		forward = new Vector2(engineForce *  MathUtils.cosDeg(physicsObject.getRotation()), 
+		forward.set(engineForce *  MathUtils.cosDeg(physicsObject.getRotation()), 
 				engineForce *  MathUtils.sinDeg(physicsObject.getRotation()));
-		backward = new Vector2(-1*engineForce *  MathUtils.cosDeg(physicsObject.getRotation()), 
+		backward.set(-1*engineForce *  MathUtils.cosDeg(physicsObject.getRotation()), 
 				-1*engineForce *  MathUtils.sinDeg(physicsObject.getRotation()));
 	}
 	
 	//method that checks for player input
 	private void checkInput(){
 		if(Gdx.input.isKeyPressed(Keys.W)){
-			addForceToPhysicsObject(forward);
+			addForceToPhysicsObject(forward.x, forward.y);
 		}
 		if(Gdx.input.isKeyPressed(Keys.A)){
 			changeRotation(LEFT);
 		}
 		if(Gdx.input.isKeyPressed(Keys.S)){
-			addForceToPhysicsObject(backward);
+			addForceToPhysicsObject(backward.x, backward.y);
 		}
 		if(Gdx.input.isKeyPressed(Keys.D)){
 			changeRotation(RIGHT);
