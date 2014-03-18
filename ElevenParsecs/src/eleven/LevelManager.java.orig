@@ -19,7 +19,11 @@ public class LevelManager {
 	public static int playerStartY = playerStartX;
 	OrthogonalTiledMapRenderer mapRenderer;
 
-	public static int numDestructibles = 20;
+<<<<<<< HEAD
+	public static int numDestructibles = 500;
+=======
+	public static int numDestructibles = 200;
+>>>>>>> ElevenBucket/dev
 	
 	public static Player player;
 	public static Base base;
