@@ -23,7 +23,7 @@ public class Player extends PhysicsObject{
 	//TODO: Add shooting variables
 	
 	public Player(int x, int y) {
-		super(x, y, 10, 0, 0);
+		super(x, y, 10, 0, 0, 0, 0);
 		numResourcesGathered = 0;
 	}
 

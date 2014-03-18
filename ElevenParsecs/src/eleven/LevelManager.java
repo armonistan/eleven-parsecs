@@ -72,9 +72,22 @@ public class LevelManager {
 		
 		//Manage the destructibles
 		//TODO: added provisions for destructibles making destructibles
-		for (Destructible d : destructibles) {
+		/*
+		for (int i = 0; i < destructibles.size(); i++) {
+			Destructible d = destructibles.get(i);
+			for (int j = i+1; j < destructibles.size(); j++) {
+				Destructible d2 = destructibles.get(j);
+				if(d != d2 && 
+						CollisionHelper.checkCollideSAT(d.getPhysicsObjectPolygon(), d2.getPhysicsObjectPolygon())){
+					d.calculateCollision(d2);
+				}
+			}
+		}
+		*/
+		for (Destructible d: destructibles){
 			d.render(batch);
 		}
+		
 		for (Destructible d : destructiblesToDestroy) {
 			destructibles.remove(d);
 		}

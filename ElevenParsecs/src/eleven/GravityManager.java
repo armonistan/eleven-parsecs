@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import com.badlogic.gdx.math.Vector2;
 
 public class GravityManager {
-	public static float g = 100f;
+	public static float g = 0f;
 	
 	public GravityManager() {
 	}
@@ -16,8 +16,6 @@ public class GravityManager {
 		Vector2 direction = new Vector2();
 		
 		for (Destructible d1 : Driver.level.destructibles) {
-				//temp
-				//CollisionHelper.checkCollideSAT(d1.getPolygon(), d2.getPolygon());
 			Vector2 combinedForce = new Vector2();
 			
 			for (Destructible d2 : Driver.level.destructibles) {
