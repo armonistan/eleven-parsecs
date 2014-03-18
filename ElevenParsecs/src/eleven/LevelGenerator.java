@@ -24,26 +24,23 @@ public class LevelGenerator {
 	TileRegion space;
 	TileRegion stars;
 	TileRegion destructibles;
-	Random randomGenerator;
 	
 	private class TileRegion {
 		int startX, startY, width, length;
-		Random rand;
 		
 		public TileRegion(int startX, int startY, int width, int length) {
 			this.startX = startX;
 			this.startY = startY;
 			this.width = width;
 			this.length = length;
-			rand = new Random();
 		}
 		
 		public int GetRandomX() {
-			return this.rand.nextInt(this.width + 1) + this.startX;
+			return Driver.random.nextInt(this.width + 1) + this.startX;
 		}
 		
 		public int GetRandomY() {
-			return this.rand.nextInt(this.length + 1) + this.startY;
+			return Driver.random.nextInt(this.length + 1) + this.startY;
 		}
 		
 	}
@@ -57,8 +54,6 @@ public class LevelGenerator {
 		
 		this.tiles = new Texture(Gdx.files.internal("data/spriteAtlas.png"));
 		this.map = new TiledMap();
-		
-		this.randomGenerator = new Random();
 		
 		this.RandomizeField();
 		this.RandomizeDestructibles(numDestructibles);
@@ -106,15 +101,15 @@ public class LevelGenerator {
 		Vector2 destVelocity = new Vector2(0, 0);
 		Vector2 destImg = new Vector2(0, 0);
 		for (int i = 0; i < numDestructibles; i++) {
-			destPosition.x = Driver.level.playerStartX + randomGenerator.nextFloat() * 1000 - 500;
-			destPosition.y = Driver.level.playerStartY + randomGenerator.nextFloat() * 1000 - 500;
+			destPosition.x = Driver.level.playerStartX + Driver.random.nextFloat() * 32000 - 16000;
+			destPosition.y = Driver.level.playerStartY + Driver.random.nextFloat() * 32000 - 16000;
 			
 			//destVelocity.x = randomGenerator.nextFloat() * 100 * (randomGenerator.nextFloat() > .5 ? 1 : -1);
 			//destVelocity.y = randomGenerator.nextFloat() * 100 * (randomGenerator.nextFloat() > .5 ? 1 : -1);
 			
 			destImg.x = destructibles.GetRandomX();
 			
-			Driver.level.destructibles.add(new Destructible(destPosition.x, destPosition.y, destImg.x, destImg.y, destVelocity.x, destVelocity.y, 10));
+			Driver.level.destructibles.add(new Destructible(destPosition.x, destPosition.y, destImg.x, destImg.y, destVelocity.x, destVelocity.y, 100));
 		}
 	}
 }
