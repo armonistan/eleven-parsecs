@@ -14,11 +14,6 @@ public class CollisionHelper {
 	public static float getDistance(Vector2 position1, Vector2 position2) {
 		return position1.dst(position2);
 	}
-
-	
-	private static Vector2 getDeltaVectorFromAToB(Vector2 a, Vector2 b){
-		return a.sub(b);
-	}
 	
 	public static float distanceSquared(Vector2 a, Vector2 b){
 		return a.dst2(b);

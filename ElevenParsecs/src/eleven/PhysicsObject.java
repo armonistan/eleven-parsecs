@@ -68,7 +68,7 @@ public class PhysicsObject {
 		return originPosition;
 	}
 	
-	public Vector2 getPosition(){
+	public Vector2 getPosition2(){
 		return position2;
 	}
 	

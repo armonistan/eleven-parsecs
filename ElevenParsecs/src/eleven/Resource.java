@@ -64,8 +64,8 @@ public class Resource {
 	}
 	
 	private void calculateAcceleration(){
-		resourceAcceleration.add(new Vector2(baseAcceleration * MathUtils.cosDeg(resource.getRotation()),
-				baseAcceleration* MathUtils.sinDeg(resource.getRotation())));
+		resourceAcceleration.add(baseAcceleration * MathUtils.cosDeg(resource.getRotation()),
+				baseAcceleration* MathUtils.sinDeg(resource.getRotation()));
 	}
 	
 	private void calculateVelocity(){

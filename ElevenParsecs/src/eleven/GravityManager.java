@@ -7,14 +7,16 @@ import com.badlogic.gdx.math.Vector2;
 
 public class GravityManager {
 	public static float g = 1000f;
+	private Vector2 direction;
 	
 	public GravityManager() {
+		direction = new Vector2();
 	}
 	
 	//TODO: Remove new Vector2's
 	public void ComputeGravity() {
 		float dist, force;
-		Vector2 direction = new Vector2();
+		direction.set(0, 0);
 		
 		for (Destructible d1 : Driver.level.destructibles) {
 				//temp
