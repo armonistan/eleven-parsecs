@@ -23,10 +23,18 @@ public class Destructible extends PhysicsObject{
 		}
 		
 		Driver.level.destructiblesToDestroy.add(this);
+<<<<<<< HEAD
+		
+		if (Driver.random.nextFloat() > .999) {
+			//this.Destroy();
+=======
 	}
 	
-		if (Driver.random.nextFloat() > .999) {
+	@Override
+	public void ObjectUpdate() {
+		if (newRand.nextFloat() > .999) {
 			// this.Destroy();
+>>>>>>> ElevenBucket/dev
 		}
 	}
 }

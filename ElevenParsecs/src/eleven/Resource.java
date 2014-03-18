@@ -13,9 +13,11 @@ public class Resource {
 	private Vector2 resourceVelocity;
 	private Vector2 futureVelocity;
 	private Vector2 resourceChangeInDistance;
+	Vector2 playPos;
+	Vector2 resPos;
 	
 	final float baseAcceleration = 100;
-	final float MAX_VELOCITY = 3;
+	final float MAX_VELOCITY = 5;
 
 	public Resource(Vector2 position) {
 		resource = new Sprite(Driver.assets.getAtlasRegion(new Vector2(6, 0)));//keep in mind the asset num
@@ -25,7 +27,8 @@ public class Resource {
 		resourceVelocity = new Vector2();
 		futureVelocity = new Vector2();
 		resourceChangeInDistance = new Vector2();
-		
+		playPos = new Vector2();
+		resPos = new Vector2();
 	}
 	
 	public void render(SpriteBatch batch) {
@@ -61,10 +64,8 @@ public class Resource {
 	}
 	
 	private void calculateAcceleration(){
-		
-		float distAcceleration = baseAcceleration * 1/(1);
 		resourceAcceleration.add(new Vector2(baseAcceleration * MathUtils.cosDeg(resource.getRotation()),
-				baseAcceleration * MathUtils.sinDeg(resource.getRotation())));
+				baseAcceleration* MathUtils.sinDeg(resource.getRotation())));
 	}
 	
 	private void calculateVelocity(){
@@ -76,6 +77,21 @@ public class Resource {
 	}
 	
 	private void moveResource(){
+		playPos.x = player.getSprite().getX();
+		playPos.y = player.getSprite().getY();
+		resPos.x = resource.getX();
+		resPos.y = resource.getY();
+		
+		if (playPos.dst2(resPos) < 100000) {
+			// Don't get rid of this, really cool resource effect.
+			//resPos.sub(playPos);
+			//resourceChangeInDistance.x = resPos.x * Gdx.graphics.getDeltaTime();
+			//resourceChangeInDistance.y = resPos.y * Gdx.graphics.getDeltaTime();
+			
+			playPos.sub(resPos);
+			resourceChangeInDistance.x = playPos.x * Gdx.graphics.getDeltaTime() * 5;
+			resourceChangeInDistance.y = playPos.y * Gdx.graphics.getDeltaTime() * 5;
+		}
 		resource.setPosition(resource.getX() + resourceChangeInDistance.x, resource.getY() + resourceChangeInDistance.y);
 	}
 
