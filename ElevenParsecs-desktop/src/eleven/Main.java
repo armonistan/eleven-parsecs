@@ -8,10 +8,11 @@ public class Main {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "Eleven Parsecs";
 		cfg.useGL20 = false;
-		cfg.width = 480;
-		cfg.height = 480;
+		cfg.width = 1000;
+		cfg.height = 700;
 		cfg.resizable = false;
 		cfg.vSyncEnabled = true;
+		cfg.foregroundFPS = 30;
 		new LwjglApplication(new Driver(), cfg);
 	}
 }

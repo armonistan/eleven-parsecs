@@ -24,7 +24,11 @@ public class LevelGenerator {
 	TileRegion space;
 	TileRegion stars;
 	TileRegion destructibles;
+<<<<<<< HEAD
+=======
+	Random randomGenerator;
 	float radius;
+>>>>>>> ElevenBucket/dev
 	
 	private class TileRegion {
 		int startX, startY, width, length;
@@ -134,7 +138,5 @@ public class LevelGenerator {
 			Driver.level.destructibles.add(new Destructible(destPosition.x, destPosition.y, destImg.x, destImg.y, destVelocity.x, destVelocity.y, 100));
 		}
 		*/
-		Driver.level.destructibles.add(new Destructible(Driver.level.playerStartX - 100, Driver.level.playerStartY, 2, destImg.y, 1, 0, 10));
-		Driver.level.destructibles.add(new Destructible(Driver.level.playerStartX + 100, Driver.level.playerStartY, 2, destImg.y, -1, 0, 10));
 	}
 }

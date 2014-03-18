@@ -16,6 +16,8 @@ public class GravityManager {
 		Vector2 direction = new Vector2();
 		
 		for (Destructible d1 : Driver.level.destructibles) {
+				//temp
+				//CollisionHelper.checkCollideSAT(d1.getPolygon(), d2.getPolygon());
 			Vector2 combinedForce = new Vector2();
 			
 			for (Destructible d2 : Driver.level.destructibles) {
@@ -30,6 +32,7 @@ public class GravityManager {
 			}
 			
 			d1.addForceToPhysicsObject(combinedForce);
+<<<<<<< HEAD
 			
 			//Now add force to player
 			dist = CollisionHelper.distanceSquared(Driver.level.player.getPosition2(), d1.getPosition2());
@@ -42,6 +45,9 @@ public class GravityManager {
 			d1.addForceToPhysicsObject(new Vector2(direction.x, direction.y).scl(force));
 			
 			//System.gc();
+		}	
+=======
 		}
+>>>>>>> ElevenBucket/dev
 	}
 }
