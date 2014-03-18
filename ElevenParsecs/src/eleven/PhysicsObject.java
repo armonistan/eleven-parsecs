@@ -17,13 +17,14 @@ public class PhysicsObject {
 	protected Vector2 physicsObjectVelocity;
 	protected Vector2 physicsObjectChangeInDistance;
 	
-	protected LinkedList<Vector2> listOfForces;
-	
 	protected float physicsObjectMass;
+	
+	private Vector2 position2;
+	private Vector2 originPosition;
+	private Vector3 position3;
 	
 	public PhysicsObject(float initialX, float initialY, float mass, 
 			float regionX, float regionY){
-		listOfForces = new LinkedList<Vector2>();
 		
 		forceOnPhysicsObject = new Vector2();
 		physicsObjectAcceleration = new Vector2();
@@ -38,6 +39,13 @@ public class PhysicsObject {
 		physicsObjectPolygon = new Polygon();
 		//physicsObjectPolygon.setOrigin(physicsObject.getOriginX(), physicsObject.getOriginY());
 		//physicsObjectPolygon.setVertices(setPhysicsObjectPolygonVertices());
+		
+		position2 = new Vector2();
+		position2.set(physicsObject.getX(), physicsObject.getY());
+		originPosition = new Vector2();
+		originPosition.set(position2.x + physicsObject.getOriginX(), position2.y + physicsObject.getOriginY());
+		position3 = new Vector3();
+		position3.set(position2, 0);
 	}
 	
 	protected float[] setPhysicsObjectPolygonVertices(){
@@ -51,16 +59,17 @@ public class PhysicsObject {
 		physicsObject.draw(batch);
 	}
 	
+	//TODO: Remove new Vector2's
 	public Vector3 getPosition3() {
-		return new Vector3(physicsObject.getOriginX() + physicsObject.getX(), physicsObject.getOriginY() + physicsObject.getY(), 0);
+		return position3;
 	}
 	
-	public Vector2 getPosition2() {
-		return new Vector2(physicsObject.getOriginX() + physicsObject.getX(), physicsObject.getOriginY() + physicsObject.getY());
+	public Vector2 getOriginPosition() {
+		return originPosition;
 	}
 	
 	public Vector2 getPosition(){
-		return new Vector2(physicsObject.getX(), physicsObject.getY());
+		return position2;
 	}
 	
 	protected void ObjectUpdate() {
@@ -69,32 +78,23 @@ public class PhysicsObject {
 	
 	//player update method
 	protected void update(){
-		sumForcesOnPhysicsObject();
 		calculateAcceleration();
 		calculateVelocity();
 		calculateChangeInPlayerPosition();
 		movePhysicsObject();
-		clearForcesOnPhysicsObject();
 		resetForceOnPhysicsObject();
-	}
-	
-	//takes all forces and adds them up
-	protected void sumForcesOnPhysicsObject(){
-		for(Vector2 force: listOfForces){
-			forceOnPhysicsObject.add(force);
-		}
+		
+		position2.set(physicsObject.getX(), physicsObject.getY());
+		originPosition.set(position2.x + physicsObject.getOriginX(), position2.y + physicsObject.getOriginY());
+		position3.set(position2, 0);
 	}
 	
 	private void resetForceOnPhysicsObject(){
-		forceOnPhysicsObject = new Vector2(0,0);
+		forceOnPhysicsObject.set(0, 0);
 	}
 	
-	public void addForceToPhysicsObject(Vector2 newForce){
-		listOfForces.add(newForce);
-	}
-	
-	protected void clearForcesOnPhysicsObject(){
-		listOfForces.clear();
+	public void addForceToPhysicsObject(float x, float y){
+		forceOnPhysicsObject.add(x, y);
 	}
 
 	protected void calculateAcceleration(){

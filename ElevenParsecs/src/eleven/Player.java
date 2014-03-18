@@ -45,13 +45,13 @@ public class Player extends PhysicsObject{
 	//method that checks for player input
 	private void checkInput(){
 		if(Gdx.input.isKeyPressed(Keys.W)){
-			addForceToPhysicsObject(forward);
+			addForceToPhysicsObject(forward.x, forward.y);
 		}
 		if(Gdx.input.isKeyPressed(Keys.A)){
 			changeRotation(LEFT);
 		}
 		if(Gdx.input.isKeyPressed(Keys.S)){
-			addForceToPhysicsObject(backward);
+			addForceToPhysicsObject(backward.x, backward.y);
 		}
 		if(Gdx.input.isKeyPressed(Keys.D)){
 			changeRotation(RIGHT);
