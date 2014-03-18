@@ -72,7 +72,7 @@ public class LevelManager {
 		
 		//Manage the destructibles
 		//TODO: added provisions for destructibles making destructibles
-		/*
+		
 		for (int i = 0; i < destructibles.size(); i++) {
 			Destructible d = destructibles.get(i);
 			for (int j = i+1; j < destructibles.size(); j++) {
@@ -83,7 +83,7 @@ public class LevelManager {
 				}
 			}
 		}
-		*/
+		
 		for (Destructible d: destructibles){
 			d.render(batch);
 		}

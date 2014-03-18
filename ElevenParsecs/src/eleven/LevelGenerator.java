@@ -113,7 +113,7 @@ public class LevelGenerator {
 				destVelocity.x = (destPosition.y - Driver.level.playerStartY);
 				destVelocity.y = -(destPosition.x - Driver.level.playerStartX);
 
-				destVelocity.nor().scl(600);
+				destVelocity.nor().scl(1);
 
 				destImg.x = destructibles.GetRandomX();
 
@@ -121,8 +121,8 @@ public class LevelGenerator {
 			}
 		}
 		
-		/*
-		for (int i = 0; i < numDestructibles; i++) {
+		
+		for (int i = 10000; i < numDestructibles; i++) {
 			destPosition.x = Driver.level.playerStartX + Driver.random.nextFloat() * 32000 - 16000;
 			destPosition.y = Driver.level.playerStartY + Driver.random.nextFloat() * 32000 - 16000;
 			
@@ -133,8 +133,8 @@ public class LevelGenerator {
 			
 			Driver.level.destructibles.add(new Destructible(destPosition.x, destPosition.y, destImg.x, destImg.y, destVelocity.x, destVelocity.y, 100));
 		}
-		*/
-		Driver.level.destructibles.add(new Destructible(Driver.level.playerStartX - 100, Driver.level.playerStartY, 2, destImg.y, 1, 0, 10));
-		Driver.level.destructibles.add(new Destructible(Driver.level.playerStartX + 100, Driver.level.playerStartY, 2, destImg.y, -1, 0, 10));
+		
+		//Driver.level.destructibles.add(new Destructible(Driver.level.playerStartX - 100, Driver.level.playerStartY + 50, 2, destImg.y, 1, 0, 10));
+		//Driver.level.destructibles.add(new Destructible(Driver.level.playerStartX + 100, Driver.level.playerStartY + 50, 2, destImg.y, -1, 0, 10));
 	}
 }

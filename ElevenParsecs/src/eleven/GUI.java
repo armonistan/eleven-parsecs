@@ -23,7 +23,7 @@ public void render(SpriteBatch batch)
 	String score = String.valueOf(Driver.level.player.getResourcesAmt());
 	font.draw(batch, score, -10, rscY);
 	//drawing player position
-	Vector2 playerVector = Driver.level.player.getPosition2();
+	Vector2 playerVector = Driver.level.player.getVelocity();
 	String coords = String.valueOf((int)playerVector.x)+","+String.valueOf((int)playerVector.y);
 	font.draw(batch, coords, -100, -1*(h/2)+30);
 	batch.end();

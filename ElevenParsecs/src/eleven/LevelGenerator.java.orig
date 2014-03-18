@@ -24,11 +24,7 @@ public class LevelGenerator {
 	TileRegion space;
 	TileRegion stars;
 	TileRegion destructibles;
-<<<<<<< HEAD
-=======
-	Random randomGenerator;
 	float radius;
->>>>>>> ElevenBucket/dev
 	
 	private class TileRegion {
 		int startX, startY, width, length;
@@ -104,8 +100,13 @@ public class LevelGenerator {
 		//Driver.gravity.ClearDestructibles();
 		
 		Vector2 destPosition = new Vector2();
-		Vector2 destVelocity = new Vector2(0, 0);
 		Vector2 destImg = new Vector2(0, 0);
+<<<<<<< HEAD
+		for (int i = 100000; i < numDestructibles; i++) {
+			destPosition.x = Driver.level.playerStartX + randomGenerator.nextFloat() * 400 ;//- 500;
+			destPosition.y = Driver.level.playerStartY + randomGenerator.nextFloat() * 400 ;//- 500;
+			Vector2 destVelocity = new Vector2(randomGenerator.nextFloat() * 1000, randomGenerator.nextFloat() * 1000);
+=======
 		
 		float deg2Rad = (float) (Math.PI / 180);
 		
@@ -129,14 +130,22 @@ public class LevelGenerator {
 		for (int i = 0; i < numDestructibles; i++) {
 			destPosition.x = Driver.level.playerStartX + Driver.random.nextFloat() * 32000 - 16000;
 			destPosition.y = Driver.level.playerStartY + Driver.random.nextFloat() * 32000 - 16000;
+>>>>>>> 8b8360be85034293829ccd1e6fa75fcb49487b19
 			
 			//destVelocity.x = randomGenerator.nextFloat() * 100 * (randomGenerator.nextFloat() > .5 ? 1 : -1);
 			//destVelocity.y = randomGenerator.nextFloat() * 100 * (randomGenerator.nextFloat() > .5 ? 1 : -1);
 			
 			destImg.x = destructibles.GetRandomX();
 			
+<<<<<<< HEAD
+		}
+		
+		Driver.level.destructibles.add(new Destructible(Driver.level.playerStartX - 100, Driver.level.playerStartY, 2, destImg.y, 1, 0, 10));
+		Driver.level.destructibles.add(new Destructible(Driver.level.playerStartX + 100, Driver.level.playerStartY, 2, destImg.y, -1, 0, 10));
+=======
 			Driver.level.destructibles.add(new Destructible(destPosition.x, destPosition.y, destImg.x, destImg.y, destVelocity.x, destVelocity.y, 100));
 		}
 		*/
+>>>>>>> 8b8360be85034293829ccd1e6fa75fcb49487b19
 	}
 }

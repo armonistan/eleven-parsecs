@@ -63,11 +63,15 @@ public class PhysicsObject {
 		return new Vector2(physicsObject.getX(), physicsObject.getY());
 	}
 	
+<<<<<<< HEAD
+	//update method
+=======
 	protected void ObjectUpdate() {
 		
 	}
 	
-	//update method
+	//player update method
+>>>>>>> 8b8360be85034293829ccd1e6fa75fcb49487b19
 	protected void update(){
 		sumForcesOnPhysicsObject();
 		calculateAcceleration();
@@ -96,11 +100,11 @@ public class PhysicsObject {
 		this.setVelocity(thisFinalVelocity);
 		this.setAcceleration(new Vector2(0,0));
 		this.setChangeInDistance(new Vector2(0,0));
-		//this.setPosition(this.getPosition().add(thisFinalVelocity));
-		other.setVelocity(otherFinalVelocity);
+		this.setPosition(this.getPosition().add(thisFinalVelocity));
+		other.setVelocity(otherFinalVelocity.scl(30));
 		other.setAcceleration(new Vector2(0,0));
 		other.setChangeInDistance(new Vector2(0,0));
-		//other.setPosition(other.getPosition().add(otherFinalVelocity.div(10)));
+		other.setPosition(other.getPosition().add(otherFinalVelocity.div(10)));
 	}
 	
 	protected void setVelocity(Vector2 newVelocity){
@@ -150,14 +154,14 @@ public class PhysicsObject {
 	}
 
 	protected void calculateAcceleration(){
-		physicsObjectAcceleration.set(new Vector2(forceOnPhysicsObject.x/(physicsObjectMass), forceOnPhysicsObject.y/(physicsObjectMass)));
+		physicsObjectAcceleration.add(forceOnPhysicsObject.div(physicsObjectMass));
 	}
 	protected void calculateVelocity(){
-		physicsObjectVelocity.add(new Vector2(physicsObjectAcceleration.x * Gdx.graphics.getDeltaTime(), physicsObjectAcceleration.y * Gdx.graphics.getDeltaTime()));
+		physicsObjectVelocity.add(physicsObjectAcceleration.scl(Gdx.graphics.getDeltaTime()));
 	}
 	
 	protected void calculateChangeInPlayerPosition(){
-		physicsObjectChangeInDistance.set(new Vector2(physicsObjectVelocity.x * Gdx.graphics.getDeltaTime(), physicsObjectVelocity.y * Gdx.graphics.getDeltaTime()));
+		physicsObjectChangeInDistance.add(new Vector2(physicsObjectVelocity.x * Gdx.graphics.getDeltaTime(), physicsObjectVelocity.y));
 	}
 	
 	protected void movePhysicsObject(){
