@@ -24,42 +24,63 @@ public class CollisionHelper {
 		if(calledIndex + 1 > calledByCaller.getVertices().length)
 			i++;
 		
-		Vector2 callerCorner = new Vector2(caller.getVertices()[callerIndex], caller.getVertices()[callerIndex+1]);
-		Vector2 callerCornerA;
-		Vector2 callerCornerB;
+		float callerCornerX = caller.getVertices()[callerIndex];
+		float callerCornerY = caller.getVertices()[callerIndex+1];
+		float callerCornerAX;
+		float callerCornerAY;
+		float callerCornerBX;
+		float callerCornerBY;
 		
 		if(callerIndex+2 == caller.getVertices().length){
-			callerCornerA = new Vector2(caller.getVertices()[callerIndex-2], caller.getVertices()[callerIndex-1]);
-			callerCornerB = new Vector2(caller.getVertices()[0], caller.getVertices()[1]);
+			callerCornerAX = caller.getVertices()[callerIndex-2];
+			callerCornerAY = caller.getVertices()[callerIndex-1];
+			callerCornerBX = caller.getVertices()[0];
+			callerCornerBY = caller.getVertices()[1];
 		}
 		else if(callerIndex == 0){
-			callerCornerA = new Vector2(caller.getVertices()[caller.getVertices().length-2], caller.getVertices()[caller.getVertices().length-1]);
-			callerCornerB = new Vector2(caller.getVertices()[callerIndex + 2], caller.getVertices()[callerIndex + 3]);
+			callerCornerAX = caller.getVertices()[caller.getVertices().length-2];
+			callerCornerAY = caller.getVertices()[caller.getVertices().length-1];
+			callerCornerBX = caller.getVertices()[callerIndex + 2];
+			callerCornerBY = caller.getVertices()[callerIndex + 3];
 		}
 		else{
-			callerCornerA = new Vector2(caller.getVertices()[callerIndex-2], caller.getVertices()[callerIndex-1]);
-			callerCornerB = new Vector2(caller.getVertices()[callerIndex+2], caller.getVertices()[callerIndex+3]);
+			callerCornerAX = caller.getVertices()[callerIndex-2];
+			callerCornerAY = caller.getVertices()[callerIndex-1];
+			callerCornerBX = caller.getVertices()[callerIndex+2];
+			callerCornerBY = caller.getVertices()[callerIndex+3];
 		}
 		
-		Vector2 calledCorner = new Vector2(calledByCaller.getVertices()[calledIndex], calledByCaller.getVertices()[calledIndex+1]);
-		Vector2 calledCornerA;
-		Vector2 calledCornerB;
+		float calledCornerX = calledByCaller.getVertices()[calledIndex];
+		float calledCornerY = calledByCaller.getVertices()[calledIndex+1];
+		float calledCornerAX;
+		float calledCornerAY;
+		float calledCornerBX;
+		float calledCornerBY;
 		
 		if(calledIndex+2 == calledByCaller.getVertices().length){
-			calledCornerA = new Vector2(calledByCaller.getVertices()[calledIndex-2], calledByCaller.getVertices()[calledIndex-1]);
-			calledCornerB = new Vector2(calledByCaller.getVertices()[0], calledByCaller.getVertices()[1]);
+			calledCornerAX = calledByCaller.getVertices()[calledIndex-2];
+			calledCornerAY = calledByCaller.getVertices()[calledIndex-1];
+			calledCornerBX = calledByCaller.getVertices()[0];
+			calledCornerBY = calledByCaller.getVertices()[1];
 		}
 		else if(calledIndex == 0){
-			calledCornerA = new Vector2(calledByCaller.getVertices()[calledByCaller.getVertices().length-2], calledByCaller.getVertices()[calledByCaller.getVertices().length-1]);
-			calledCornerB = new Vector2(calledByCaller.getVertices()[calledIndex + 2], calledByCaller.getVertices()[calledIndex + 3]);
+			calledCornerAX = calledByCaller.getVertices()[calledByCaller.getVertices().length-2];
+			calledCornerAY = calledByCaller.getVertices()[calledByCaller.getVertices().length-1];
+			calledCornerBX = calledByCaller.getVertices()[calledIndex + 2];
+			calledCornerBY = calledByCaller.getVertices()[calledIndex + 3];
 		}
 		else{
-			calledCornerA = new Vector2(calledByCaller.getVertices()[calledIndex-2], calledByCaller.getVertices()[calledIndex-1]);
-			calledCornerB = new Vector2(calledByCaller.getVertices()[calledIndex+2], calledByCaller.getVertices()[calledIndex+3]);
+			calledCornerAX = calledByCaller.getVertices()[calledIndex-2];
+			calledCornerAY = calledByCaller.getVertices()[calledIndex-1];
+			calledCornerBX = calledByCaller.getVertices()[calledIndex+2];
+			calledCornerBY = calledByCaller.getVertices()[calledIndex+3];
 		}
 		
-		boolean doesACross = doLineSegmentsIntersect(callerCornerA, callerCorner, calledCornerA, calledCorner) || doLineSegmentsIntersect(callerCornerA, callerCorner, calledCornerB, calledCorner);
-		boolean doesBCross = doLineSegmentsIntersect(callerCornerB, callerCorner, calledCornerB, calledCorner) || doLineSegmentsIntersect(callerCornerB, callerCorner, calledCornerA, calledCorner);
+		boolean doesACross = doLineSegmentsIntersect(callerCornerAX, callerCornerAY, callerCornerX, callerCornerY, calledCornerAX, calledCornerAY, calledCornerX, calledCornerY) 
+				|| doLineSegmentsIntersect(callerCornerAX, callerCornerAY, callerCornerX, callerCornerY, calledCornerBX, calledCornerBY, calledCornerX, calledCornerY);
+		
+		boolean doesBCross = doLineSegmentsIntersect(callerCornerBX, callerCornerBY, callerCornerX, callerCornerY, calledCornerBX, calledCornerBY, calledCornerX, calledCornerY)
+				|| doLineSegmentsIntersect(callerCornerBX, callerCornerBY, callerCornerX, callerCornerY, calledCornerAX, calledCornerAY, calledCornerX, calledCornerY);
 		
 		if(doesACross || doesBCross)
 			return true;
@@ -94,27 +115,27 @@ public class CollisionHelper {
 		return;
 	}
 	
-	private static boolean doLineSegmentsIntersect(Vector2 callerStart, Vector2 callerEnd, Vector2 calledStart, Vector2 calledEnd){
-		float callerSlope = (callerStart.y - callerEnd.y)/(callerStart.x - callerEnd.x);
-		float callerConstant = callerStart.y - (callerStart.x * callerSlope);
+	private static boolean doLineSegmentsIntersect(float callerStartX, float callerStartY, float callerEndX, float callerEndY, float calledStartX, float calledStartY, float calledEndX, float calledEndY){
+		float callerSlope = (callerStartY - callerEndY)/(callerStartX - callerEndX);
+		float callerConstant = callerStartY - (callerStartX * callerSlope);
 		
-		float calledSlope = (calledStart.y - calledEnd.y)/(calledStart.x - calledEnd.x);
-		float calledConstant = calledStart.y - (calledStart.x * calledSlope);
+		float calledSlope = (calledStartY - calledEndY)/(calledStartX - calledEndX);
+		float calledConstant = calledStartY - (calledStartX * calledSlope);
 		
 		float x = (callerConstant - calledConstant)/(calledSlope - callerSlope);
 		
-		if((callerEnd.x >= callerStart.x)&&(x <= callerEnd.x)&&(x >= callerStart.x)){
-			if((calledEnd.x >= calledStart.x)&&(x <= calledEnd.x)&&(x >= calledStart.x))
+		if((callerEndX >= callerStartX)&&(x <= callerEndX)&&(x >= callerStartX)){
+			if((calledEndX >= calledStartX)&&(x <= calledEndX)&&(x >= calledStartX))
 				return true;
-			else if((calledEnd.x <= calledStart.x)&&(x >= calledEnd.x)&&(x <= calledStart.x))
+			else if((calledEndX <= calledStartX)&&(x >= calledEndX)&&(x <= calledStartX))
 				return true;
 			else
 				return false;
 		}
-		else if((callerEnd.x <= callerStart.x)&&(x >= callerEnd.x)&&(x <= callerStart.x)){
-			if((calledEnd.x >= calledStart.x)&&(x <= calledEnd.x)&&(x >= calledStart.x))
+		else if((callerEndX <= callerStartX)&&(x >= callerEndX)&&(x <= callerStartX)){
+			if((calledEndX >= calledStartX)&&(x <= calledEndX)&&(x >= calledStartX))
 				return true;
-			else if((calledEnd.x <= calledStart.x)&&(x >= calledEnd.x)&&(x <= calledStart.x))
+			else if((calledEndX <= calledStartX)&&(x >= calledEndX)&&(x <= calledStartX))
 				return true;
 			else
 				return false;
