@@ -56,7 +56,6 @@ public class PhysicsObject {
 	public void render(SpriteBatch batch) {
 		//TODO: Add movement logic
 		update();
-		ObjectUpdate();
 		physicsObject.draw(batch);
 	}
 	
@@ -71,10 +70,6 @@ public class PhysicsObject {
 	
 	public Vector2 getPosition2(){
 		return position2;
-	}
-	
-	protected void ObjectUpdate() {
-		
 	}
 	
 	//update method
