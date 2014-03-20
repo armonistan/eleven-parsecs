@@ -97,13 +97,17 @@ public class CollisionHelper {
 	}
 	
 	private static void getClosestCorners(Polygon caller, Polygon calledByCaller){
-		float minDistance = 100000;
+		float minDistance = Float.MAX_VALUE;
 				
 		for(int i = 0; i < caller.getVertices().length; i+=2){
-			Vector2 testCorner = new Vector2(caller.getVertices()[i], caller.getVertices()[i+1]);
+			float testCornerX = caller.getVertices()[i];
+			float testCornerY = caller.getVertices()[i+1];
+			
 			for(int j = 0; j < calledByCaller.getVertices().length; j+=2){
-				Vector2 testCorner2 = new Vector2(calledByCaller.getVertices()[j], calledByCaller.getVertices()[j+1]);
-				float distance = CollisionHelper.getDistance(testCorner.x, testCorner.y, testCorner2.x, testCorner2.y);
+				float testCorner2X = calledByCaller.getVertices()[j];
+				float testCorner2Y = calledByCaller.getVertices()[j+1];
+				
+				float distance = CollisionHelper.getDistanceSquared(testCornerX, testCornerY, testCorner2X, testCorner2Y);
 				if(distance < minDistance){
 					minDistance = distance;
 					callerIndex = i;
