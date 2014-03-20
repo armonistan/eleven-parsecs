@@ -19,10 +19,11 @@ public class GravityManager {
 		direction.set(0, 0);
 		
 		for (Destructible d1 : Driver.level.destructibles) {
-			
 			for (Destructible d2 : Driver.level.destructibles) {
 				if (d1 != d2) {
-					dist = CollisionHelper.distanceSquared(d1.getOriginPosition(), d2.getOriginPosition());
+					dist = CollisionHelper.getDistanceSquared(d1.getOriginPosition().x, d1.getOriginPosition().y,
+							d2.getOriginPosition().x, d2.getOriginPosition().y);
+					
 					if (dist > 1) {
 						direction.set(d2.getOriginPosition().x - d1.getOriginPosition().x, 
 								d2.getOriginPosition().y - d1.getOriginPosition().y);
@@ -34,7 +35,8 @@ public class GravityManager {
 			}
 			
 			//Now add force to player
-			dist = CollisionHelper.distanceSquared(Driver.level.player.getOriginPosition(), d1.getOriginPosition());
+			dist = CollisionHelper.getDistanceSquared(Driver.level.player.getOriginPosition().x, Driver.level.player.getOriginPosition().y,
+					d1.getOriginPosition().x, d1.getOriginPosition().y);
 			direction.set(d1.getOriginPosition().x - Driver.level.player.getOriginPosition().x,
 					d1.getOriginPosition().y - Driver.level.player.getOriginPosition().y);
 			direction.nor();

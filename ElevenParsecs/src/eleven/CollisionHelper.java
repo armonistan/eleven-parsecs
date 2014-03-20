@@ -9,10 +9,10 @@ public class CollisionHelper {
 	private static int calledIndex = 0;
 	
 	public static boolean checkCollide(Sprite caller, Sprite calledByCaller){
-		float dist = getDistance(new Vector2(caller.getX(), caller.getY()), 
-				new Vector2(calledByCaller.getX(), calledByCaller.getY()));
+		float dist = getDistanceSquared(caller.getX(), caller.getY(), 
+				calledByCaller.getX(), calledByCaller.getY());
 		
-		return (dist < 40);
+		return (dist < 32f * 32f);
 	}
 	
 	public static boolean checkCollideSAT(Polygon caller, Polygon calledByCaller){
@@ -67,12 +67,12 @@ public class CollisionHelper {
 			return false;
 	}
 	
-	public static float getDistance(Vector2 position1, Vector2 position2) {
-		return position1.dst(position2);
+	public static float getDistance(float x1, float y1, float x2, float y2) {
+		return (float)Math.sqrt(getDistanceSquared(x1, y1, x2, y2));
 	}
 		
-	public static float distanceSquared(Vector2 a, Vector2 b){
-		return a.dst2(b);
+	public static float getDistanceSquared(float x1, float y1, float x2, float y2){
+		return (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
 	}
 	
 	private static void getClosestCorners(Polygon caller, Polygon calledByCaller){
@@ -82,7 +82,7 @@ public class CollisionHelper {
 			Vector2 testCorner = new Vector2(caller.getVertices()[i], caller.getVertices()[i+1]);
 			for(int j = 0; j < calledByCaller.getVertices().length; j+=2){
 				Vector2 testCorner2 = new Vector2(calledByCaller.getVertices()[j], calledByCaller.getVertices()[j+1]);
-				float distance = CollisionHelper.getDistance(testCorner, testCorner2);
+				float distance = CollisionHelper.getDistance(testCorner.x, testCorner.y, testCorner2.x, testCorner2.y);
 				if(distance < minDistance){
 					minDistance = distance;
 					callerIndex = i;
