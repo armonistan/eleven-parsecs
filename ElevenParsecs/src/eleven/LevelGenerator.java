@@ -106,7 +106,7 @@ public class LevelGenerator {
 		float deg2Rad = (float) (Math.PI / 180);
 		
 		for (int i = 0; i < 360; i++) {
-			if (i % 11 == 0) {
+			if (i % 40 == 0) {
 				destPosition.x = (float) (Driver.level.playerStartX + (Math.cos(i * deg2Rad) * this.radius));
 				destPosition.y = (float) (Driver.level.playerStartY + (Math.sin(i * deg2Rad) * this.radius));
 				
@@ -115,9 +115,10 @@ public class LevelGenerator {
 
 				destVelocity.nor().scl(1);
 
-				destImg.x = destructibles.GetRandomX();
+				destImg.x = this.calculateDestructibleAtalasX(5);
+				destImg.y = this.calculateDestructibleAtalasY(5);
 
-				Driver.level.destructibles.add(new Destructible(destPosition.x, destPosition.y, destImg.x, destImg.y, destVelocity.x, destVelocity.y, 100));
+				Driver.level.destructibles.add(new Destructible(destPosition.x, destPosition.y, destImg.x, destImg.y, destVelocity.x, destVelocity.y, 10));
 			}
 		}
 		
@@ -131,10 +132,29 @@ public class LevelGenerator {
 			
 			destImg.x = destructibles.GetRandomX();
 			
-			Driver.level.destructibles.add(new Destructible(destPosition.x, destPosition.y, destImg.x, destImg.y, destVelocity.x, destVelocity.y, 100));
+			Driver.level.destructibles.add(new Destructible(destPosition.x, destPosition.y, destImg.x, destImg.y, destVelocity.x, destVelocity.y, 10));
 		}
 		
 		//Driver.level.destructibles.add(new Destructible(Driver.level.playerStartX - 100, Driver.level.playerStartY + 50, 2, destImg.y, 1, 0, 10));
 		//Driver.level.destructibles.add(new Destructible(Driver.level.playerStartX + 100, Driver.level.playerStartY + 50, 2, destImg.y, -1, 0, 10));
+	}
+	
+	//logic in, actual numbers to be decided when atlas sheet is complete
+	private int calculateDestructibleAtalasX(int mass){
+		if(mass < 10)
+			return 2;
+		else if(mass < 20){
+			return 3;
+		}
+		else
+			return 4;
+	}
+	
+	//logic in, actual numbers to be decided when atlas sheet is complete
+	private int calculateDestructibleAtalasY(int mass){
+		if(mass < 10)
+			return 0;
+		else
+			return 0;
 	}
 }

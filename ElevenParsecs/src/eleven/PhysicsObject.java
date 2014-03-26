@@ -17,13 +17,13 @@ public class PhysicsObject {
 	protected Vector2 physicsObjectVelocity;
 	protected Vector2 physicsObjectChangeInDistance;
 	
-	protected float physicsObjectMass;
+	protected int physicsObjectMass;
 	
 	private Vector2 position2;
 	private Vector2 originPosition;
 	private Vector3 position3;
 	
-	public PhysicsObject(float initialX, float initialY, float mass, 
+	public PhysicsObject(float initialX, float initialY, int mass, 
 			float regionX, float regionY, float intialVelocityX, float intialVelocityY){
 		
 		forceOnPhysicsObject = new Vector2();
@@ -173,7 +173,7 @@ public class PhysicsObject {
 		return physicsObjectPolygon;
 	}
 	
-	public float getMass(){
+	public int getMass(){
 		return physicsObjectMass;
 	}
 	

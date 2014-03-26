@@ -11,10 +11,17 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Destructible extends PhysicsObject{
 	
+	private int resourcesHeld;
+	private int subDestructiblesHeld;
+	
 	public Destructible(float initialX, float initialY, 
-			float atlasX, float atlasY, float intialVelocityX, float intialVelocityY, float mass){
+			float atlasX, float atlasY, float intialVelocityX, float intialVelocityY, int mass){
 		super(initialX, initialY, mass, atlasX, atlasY, intialVelocityX, intialVelocityY);
 		physicsObjectPolygon.setVertices(setPhysicsObjectPolygonVertices((int)atlasX));
+		//a variable that tells how much resource the destructible holds
+		resourcesHeld = Driver.random.nextInt(3);//arbitrary number atm
+		//variable that says how many sub destructibles are made
+		subDestructiblesHeld = 2; //arbitrary number
 	}
 	
 	@Override
@@ -76,11 +83,18 @@ public class Destructible extends PhysicsObject{
 		return vertices;
 	}
 		
-	public void Destroy() {
-		for (int i = 0; i < this.physicsObjectMass; i++) {
-			Driver.level.AddResource(physicsObject.getX() - 10 + Driver.random.nextFloat() * 20, physicsObject.getY() - 10 + Driver.random.nextFloat() * 10);
+	public void destroy() {
+		//spawn resources
+		for (int i = 0; i < resourcesHeld; i++) {
+			Driver.level.addResource(physicsObject.getX() - 10 + Driver.random.nextFloat() * 20, physicsObject.getY() - 10 + Driver.random.nextFloat() * 10);
+		}
+
+		//spawn destructibles
+		for(int i = 0; i < subDestructiblesHeld; i++){
+			Driver.level.addDestructible(physicsObject.getX() - 10 + Driver.random.nextFloat() * 100, physicsObject.getY() - 10 + Driver.random.nextFloat() * 100, this.getMass());
 		}
 		
+		//exterminate exterminate exterminate
 		Driver.level.destructiblesToDestroy.add(this);
 	}
 }
