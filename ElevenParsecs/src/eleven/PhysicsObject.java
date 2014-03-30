@@ -96,26 +96,26 @@ public class PhysicsObject {
 		otherFinalVelocity.y = (2*this.getMass()*this.getVelocity().y - (this.getMass() - 
 				other.getMass())*other.getVelocity().y)/(this.getMass() + other.getMass());
 		
-		this.setVelocity(thisFinalVelocity);
-		this.setAcceleration(new Vector2(0,0));
-		this.setChangeInDistance(new Vector2(0,0));
+		this.setVelocity(thisFinalVelocity.x, thisFinalVelocity.y);
+		this.setAcceleration(0,0);
+		this.setChangeInDistance(0,0);
 		//this.setPosition(this.getPosition().add(thisFinalVelocity));
-		other.setVelocity(otherFinalVelocity);
-		other.setAcceleration(new Vector2(0,0));
-		other.setChangeInDistance(new Vector2(0,0));
+		other.setVelocity(otherFinalVelocity.x, otherFinalVelocity.y);
+		other.setAcceleration(0,0);
+		other.setChangeInDistance(0,0);
 		//other.setPosition(other.getPosition().add(otherFinalVelocity.div(10)));
 	}
 	
-	protected void setVelocity(Vector2 newVelocity){
-		this.physicsObjectVelocity.set(newVelocity);
+	protected void setVelocity(float newVelocityX, float newVelocityY){
+		this.physicsObjectVelocity.set(newVelocityX, newVelocityY);
 	}
 	
-	protected void setAcceleration(Vector2 newAcceleration){
-		this.physicsObjectAcceleration.set(newAcceleration);
+	protected void setAcceleration(float newAccelerationX, float newAccelerationY){
+		this.physicsObjectAcceleration.set(newAccelerationX, newAccelerationY);
 	}
 	
-	protected void setChangeInDistance(Vector2 newChangeInDistance){
-		this.physicsObjectChangeInDistance.set(newChangeInDistance);
+	protected void setChangeInDistance(float newChangeInDistanceX, float newChangeInDistanceY){
+		this.physicsObjectChangeInDistance.set(newChangeInDistanceX, newChangeInDistanceY);
 	}
 	
 	protected Vector2 getVelocity(){

@@ -6,6 +6,7 @@ import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 
@@ -88,10 +89,19 @@ public class Destructible extends PhysicsObject{
 		for (int i = 0; i < resourcesHeld; i++) {
 			Driver.level.addResource(physicsObject.getX() - 10 + Driver.random.nextFloat() * 20, physicsObject.getY() - 10 + Driver.random.nextFloat() * 10);
 		}
-
-		//spawn destructibles
-		for(int i = 0; i < subDestructiblesHeld; i++){
-			Driver.level.addDestructible(physicsObject.getX() - 10 + Driver.random.nextFloat() * 100, physicsObject.getY() - 10 + Driver.random.nextFloat() * 100, this.getMass());
+		
+		if (this.getMass() > 1) {
+			//spawn destructibles
+			for(int i = 0; i < subDestructiblesHeld; i++){
+				float angle = MathUtils.PI2 * (float)i / subDestructiblesHeld + MathUtils.atan2(this.getVelocity().x, this.getVelocity().y);
+				float newX = MathUtils.cos(angle) * physicsObject.getOriginX() + physicsObject.getX() - physicsObject.getOriginX();
+				float newY = MathUtils.sin(angle) * physicsObject.getOriginY() + physicsObject.getY() - physicsObject.getOriginY();
+				float velX = MathUtils.cos(angle) * 0;
+				float velY = MathUtils.sin(angle) * 0;
+				
+				Driver.level.addDestructible(newX, newY, velX, velY,
+						this.getMass() / this.subDestructiblesHeld);
+			}
 		}
 		
 		//exterminate exterminate exterminate

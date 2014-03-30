@@ -121,9 +121,13 @@ public class LevelManager {
 		resourcesToAdd.add(newRes);
 	}
 	
-	public void addDestructible(float x, float y, int mass) {
-		if(destructibles.size() < 30)
-			destructiblesToAdd.add(new Destructible(x, y, this.calculateDestructibleAtalasX(mass), this.calculateDestructibleAtalasY(mass), 0, 0, mass));
+	public void addDestructible(float x, float y, float velocityX, float velocityY, int mass) {
+		if(destructibles.size() < 30) {
+			Destructible temp = new Destructible(x, y, this.calculateDestructibleAtalasX(mass), this.calculateDestructibleAtalasY(mass), 0, 0, mass);
+			temp.setVelocity(velocityX, velocityY);
+			
+			destructiblesToAdd.add(temp);
+		}
 	}
 
 	//logic in, actual numbers to be decided when atlas sheet is complete
