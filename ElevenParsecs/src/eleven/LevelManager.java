@@ -26,9 +26,12 @@ public class LevelManager {
 	
 	public static ArrayList<Resource> resources;
 	public static LinkedList<Resource> resourcesToDestroy;
+	public static LinkedList<Resource> resourcesToAdd;
+	
 	
 	public static ArrayList<Destructible> destructibles;
 	public static LinkedList<Destructible> destructiblesToDestroy;
+	public static LinkedList<Destructible> destructiblesToAdd;
 	
 	public LevelManager() {
 		player = new Player(playerStartX, playerStartY);
@@ -39,9 +42,11 @@ public class LevelManager {
 
 		resources = new ArrayList<Resource>();
 		resourcesToDestroy = new LinkedList<Resource>();
+		resourcesToAdd = new LinkedList<Resource>();
 		
 		destructibles = new ArrayList<Destructible>(numDestructibles);
 		destructiblesToDestroy = new LinkedList<Destructible>();
+		destructiblesToAdd = new LinkedList<Destructible>();
 		
 		generator = new LevelGenerator(this.mapSize, this.numDestructibles);
 		map = generator.getMap();
@@ -68,24 +73,79 @@ public class LevelManager {
 		for (Resource r : resourcesToDestroy) {
 			resources.remove(r);
 		}
+		for (Resource r : resourcesToAdd) {
+			resources.add(r);
+		}
 		resourcesToDestroy.clear();
+		resourcesToAdd.clear();
 		
 		//Manage the destructibles
 		//TODO: added provisions for destructibles making destructibles
-		for (Destructible d : destructibles) {
+		
+		//Does collisions for all destructibles
+		for (int i = 0; i < destructibles.size(); i++) {
+			Destructible d = destructibles.get(i);
+			for (int j = i+1; j < destructibles.size(); j++) {
+				Destructible d2 = destructibles.get(j);
+				if(d != d2 && 
+						CollisionHelper.checkCollideSAT(d.getPhysicsObjectPolygon(), d2.getPhysicsObjectPolygon())){
+					d.calculateCollision(d2);
+					d.destroy();
+					d2.destroy();
+				}
+			}
+		}
+		
+		for (Destructible d: destructibles){
 			d.render(batch);
 		}
+		
 		for (Destructible d : destructiblesToDestroy) {
 			destructibles.remove(d);
 		}
+		
+		for (Destructible d : destructiblesToAdd) {
+			destructibles.add(d);
+		}
+		
 		destructiblesToDestroy.clear();
+		destructiblesToAdd.clear();
+		
 		//TODO: Update asteroids (and the like)
 		batch.end();
 		
 	}
 	
-	public void AddResource(float x, float y) {
+	public void addResource(float x, float y) {
 		Resource newRes = new Resource(new Vector2(x, y));
-		resources.add(newRes);
+		resourcesToAdd.add(newRes);
+	}
+	
+	public void addDestructible(float x, float y, float velocityX, float velocityY, int mass) {
+		if(destructibles.size() < 30) {
+			Destructible temp = new Destructible(x, y, this.calculateDestructibleAtalasX(mass), this.calculateDestructibleAtalasY(mass), 0, 0, mass);
+			temp.setVelocity(velocityX, velocityY);
+			
+			destructiblesToAdd.add(temp);
+		}
+	}
+
+	//logic in, actual numbers to be decided when atlas sheet is complete
+	public int calculateDestructibleAtalasX(int mass){
+		if(mass < 10)
+			return 2;
+		else if(mass < 20){
+			return 3;
+		}
+		else
+			return 4;
+	}
+	
+	//logic in, actual numbers to be decided when atlas sheet is complete
+	public int calculateDestructibleAtalasY(int mass){
+		if(mass < 10)
+			return 0;
+		else
+			return 0;
 	}
 }

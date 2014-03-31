@@ -105,7 +105,11 @@ public class LevelGenerator {
 		float deg2Rad = (float) (Math.PI / 180);
 		
 		for (int i = 0; i < 360; i++) {
+<<<<<<< HEAD
+			if (i % 30 == 0) {
+=======
 			if (i % 40 == 0) {
+>>>>>>> c8a0cf338fd3c4f2af954d4cd3f101a63560e0be
 				destPosition.x = (float) (Driver.level.playerStartX + (Math.cos(i * deg2Rad) * this.radius));
 				destPosition.y = (float) (Driver.level.playerStartY + (Math.sin(i * deg2Rad) * this.radius));
 				
@@ -120,9 +124,16 @@ public class LevelGenerator {
 				Driver.level.destructibles.add(new Destructible(destPosition.x, destPosition.y, destImg.x, destImg.y, destVelocity.x, destVelocity.y, 10));
 			}
 		}
+<<<<<<< HEAD
 	}
+}
+		/*
+		for (int i = 0; i < numDestructibles; i++) {
+=======
+		
 		
 		for (int i = 10000; i < numDestructibles; i++) {
+>>>>>>> c8a0cf338fd3c4f2af954d4cd3f101a63560e0be
 			destPosition.x = Driver.level.playerStartX + Driver.random.nextFloat() * 32000 - 16000;
 			destPosition.y = Driver.level.playerStartY + Driver.random.nextFloat() * 32000 - 16000;
 			
@@ -133,6 +144,9 @@ public class LevelGenerator {
 			
 			Driver.level.destructibles.add(new Destructible(destPosition.x, destPosition.y, destImg.x, destImg.y, destVelocity.x, destVelocity.y, 10));
 		}
+<<<<<<< HEAD
+		*/
+=======
 		
 		//Driver.level.destructibles.add(new Destructible(Driver.level.playerStartX - 100, Driver.level.playerStartY + 50, 2, destImg.y, 1, 0, 10));
 		//Driver.level.destructibles.add(new Destructible(Driver.level.playerStartX + 100, Driver.level.playerStartY + 50, 2, destImg.y, -1, 0, 10));
@@ -155,3 +169,6 @@ public class LevelGenerator {
 			return 0;
 		else
 			return 0;
+	}
+}
+>>>>>>> c8a0cf338fd3c4f2af954d4cd3f101a63560e0be
