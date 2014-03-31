@@ -93,7 +93,6 @@ public class LevelGenerator {
 		
 		layers.add(spaceLayer);
 		layers.add(starsLayer);
-		
 	}
 
 	private void RandomizeDestructibles(int numDestructibles) {
@@ -106,7 +105,7 @@ public class LevelGenerator {
 		float deg2Rad = (float) (Math.PI / 180);
 		
 		for (int i = 0; i < 360; i++) {
-			if (i % 7 == 0) {
+			if (i % 30 == 0) {
 				destPosition.x = (float) (Driver.level.playerStartX + (Math.cos(i * deg2Rad) * this.radius));
 				destPosition.y = (float) (Driver.level.playerStartY + (Math.sin(i * deg2Rad) * this.radius));
 				
