@@ -76,8 +76,8 @@ public class Driver implements ApplicationListener {
 		camera.position.y = lerped.y;
 		camera.update();
 		
-		laserCamera.position.x = 0;
-		laserCamera.position.y = 0;
+		laserCamera.position.x = lerped.x;
+		laserCamera.position.y = lerped.y;
 		laserCamera.update();
 		
 		//Set the GUI camera position

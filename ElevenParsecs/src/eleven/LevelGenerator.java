@@ -120,7 +120,6 @@ public class LevelGenerator {
 				Driver.level.destructibles.add(new Destructible(destPosition.x, destPosition.y, destImg.x, destImg.y, destVelocity.x, destVelocity.y, 10));
 			}
 		}
-	}
 		
 		for (int i = 10000; i < numDestructibles; i++) {
 			destPosition.x = Driver.level.playerStartX + Driver.random.nextFloat() * 32000 - 16000;
@@ -155,3 +154,5 @@ public class LevelGenerator {
 			return 0;
 		else
 			return 0;
+	}
+}

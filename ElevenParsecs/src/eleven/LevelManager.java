@@ -85,6 +85,13 @@ public class LevelManager {
 		//Does collisions for all destructibles
 		for (int i = 0; i < destructibles.size(); i++) {
 			Destructible d = destructibles.get(i);
+			if (d.getPhysicsObjectPolygon().contains(this.player.laser.getLaserEndPointPosition().x, this.player.laser.getLaserEndPointPosition().y)) {
+				d.damageDestructible(1);
+			}
+			if (d.getHealth() < 0) {
+				d.destroy();
+				break;
+			}
 			for (int j = i+1; j < destructibles.size(); j++) {
 				Destructible d2 = destructibles.get(j);
 				if(d != d2 && 

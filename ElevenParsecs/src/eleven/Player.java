@@ -36,8 +36,8 @@ public class Player extends PhysicsObject{
 	protected void update(){
 		calculateEngineForces();
 		checkInput();
-		laser.updatePosition(physicsObject.getOriginX(), physicsObject.getOriginY(), physicsObject.getRotation());
 		super.update();
+		laser.updatePosition(physicsObject.getX() + 16, physicsObject.getY() + 16, physicsObject.getRotation());
 	}
 	
 	private void calculateEngineForces(){
