@@ -92,6 +92,7 @@ public class LevelManager {
 				d.destroy();
 				break;
 			}
+			
 			for (int j = i+1; j < destructibles.size(); j++) {
 				Destructible d2 = destructibles.get(j);
 				

@@ -1,15 +1,16 @@
 package eleven;
 
-import java.util.LinkedList;
-
 import com.badlogic.gdx.math.MathUtils;
 
 public class Destructible extends PhysicsObject{
 	
 	private int resourcesHeld;
 	private int subDestructiblesHeld;
+<<<<<<< HEAD
 	public LinkedList<Destructible> ignoreTheseCollisions; //It's fine, don't worry
+=======
 	private int health;
+>>>>>>> ElevenBucket/dev
 	
 	public Destructible(float initialX, float initialY, 
 			float atlasX, float atlasY, float intialVelocityX, float intialVelocityY, int mass){
@@ -19,9 +20,12 @@ public class Destructible extends PhysicsObject{
 		resourcesHeld = Driver.random.nextInt(3);//arbitrary number atm
 		//variable that says how many sub destructibles are made
 		subDestructiblesHeld = 2; //arbitrary number
+<<<<<<< HEAD
 		
-		this.health = mass / 5;
 		ignoreTheseCollisions = new LinkedList<Destructible>();
+=======
+		this.health = mass / 5;
+>>>>>>> ElevenBucket/dev
 	}
 	
 	@Override
