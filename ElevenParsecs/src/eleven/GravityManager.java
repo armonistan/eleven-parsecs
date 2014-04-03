@@ -20,7 +20,7 @@ public class GravityManager {
 		
 		for (Destructible d1 : Driver.level.destructibles) {
 			for (Destructible d2 : Driver.level.destructibles) {
-				if (d1 != d2) {
+				if (d1 != d2 && !d1.ignoreTheseCollisions.contains(d2)) {
 					dist = CollisionHelper.getDistanceSquared(d1.getOriginPosition().x, d1.getOriginPosition().y,
 							d2.getOriginPosition().x, d2.getOriginPosition().y);
 					

@@ -87,11 +87,27 @@ public class LevelManager {
 			Destructible d = destructibles.get(i);
 			for (int j = i+1; j < destructibles.size(); j++) {
 				Destructible d2 = destructibles.get(j);
-				if(d != d2 && 
-						CollisionHelper.checkCollideSAT(d.getPhysicsObjectPolygon(), d2.getPhysicsObjectPolygon())){
-					d.calculateCollision(d2);
-					d.destroy();
-					d2.destroy();
+				
+				if (d != d2) {
+					//SLIGHTLY TEMP
+					if (CollisionHelper.checkCollide(d.getSprite(), d2.getSprite())) {
+						if (!d.ignoreTheseCollisions.contains(d2)) {
+							if (CollisionHelper.checkCollideSAT(d.getPhysicsObjectPolygon(), d2.getPhysicsObjectPolygon())) {
+								d.calculateCollision(d2);
+								
+								if (d.getMass() < d2.getMass()) {
+									d.destroy();
+								}
+								else if (d2.getMass() < d.getMass()) {
+									d2.destroy();
+								}
+							}
+						}
+					}
+					else if (d.ignoreTheseCollisions.contains(d2)) {
+						d.ignoreTheseCollisions.remove(d2);
+						d2.ignoreTheseCollisions.remove(d);
+					}
 				}
 			}
 		}
@@ -121,12 +137,17 @@ public class LevelManager {
 		resourcesToAdd.add(newRes);
 	}
 	
-	public void addDestructible(float x, float y, float velocityX, float velocityY, int mass) {
+	public Destructible addDestructible(float x, float y, float velocityX, float velocityY, int mass) {
 		if(destructibles.size() < 30) {
 			Destructible temp = new Destructible(x, y, this.calculateDestructibleAtalasX(mass), this.calculateDestructibleAtalasY(mass), 0, 0, mass);
 			temp.setVelocity(velocityX, velocityY);
 			
 			destructiblesToAdd.add(temp);
+			
+			return temp;
+		}
+		else {
+			return null;
 		}
 	}
 

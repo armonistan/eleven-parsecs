@@ -118,7 +118,7 @@ public class LevelGenerator {
 				destImg.x = this.calculateDestructibleAtalasX(5);
 				destImg.y = this.calculateDestructibleAtalasY(5);
 
-				Driver.level.destructibles.add(new Destructible(destPosition.x, destPosition.y, destImg.x, destImg.y, destVelocity.x, destVelocity.y, 10));
+				Driver.level.destructibles.add(new Destructible(destPosition.x, destPosition.y, destImg.x, destImg.y, destVelocity.x, destVelocity.y, 1 * (1 + i)));
 			}
 		}
 		

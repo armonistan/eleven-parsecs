@@ -14,6 +14,7 @@ public class Destructible extends PhysicsObject{
 	
 	private int resourcesHeld;
 	private int subDestructiblesHeld;
+	public LinkedList<Destructible> ignoreTheseCollisions; //It's fine, don't worry
 	
 	public Destructible(float initialX, float initialY, 
 			float atlasX, float atlasY, float intialVelocityX, float intialVelocityY, int mass){
@@ -23,6 +24,8 @@ public class Destructible extends PhysicsObject{
 		resourcesHeld = Driver.random.nextInt(3);//arbitrary number atm
 		//variable that says how many sub destructibles are made
 		subDestructiblesHeld = 2; //arbitrary number
+		
+		ignoreTheseCollisions = new LinkedList<Destructible>();
 	}
 	
 	@Override
@@ -90,17 +93,34 @@ public class Destructible extends PhysicsObject{
 			Driver.level.addResource(physicsObject.getX() - 10 + Driver.random.nextFloat() * 20, physicsObject.getY() - 10 + Driver.random.nextFloat() * 10);
 		}
 		
+		ignoreTheseCollisions.clear();
+		
 		if (this.getMass() > 1) {
 			//spawn destructibles
 			for(int i = 0; i < subDestructiblesHeld; i++){
 				float angle = MathUtils.PI2 * (float)i / subDestructiblesHeld + MathUtils.atan2(this.getVelocity().x, this.getVelocity().y);
-				float newX = MathUtils.cos(angle) * physicsObject.getOriginX() + physicsObject.getX() - physicsObject.getOriginX();
-				float newY = MathUtils.sin(angle) * physicsObject.getOriginY() + physicsObject.getY() - physicsObject.getOriginY();
-				float velX = MathUtils.cos(angle) * 0;
-				float velY = MathUtils.sin(angle) * 0;
+				float newX = /*MathUtils.cos(angle) * physicsObject.getOriginX() * 2 + */
+						physicsObject.getX() - physicsObject.getOriginX();
+				float newY = /*MathUtils.sin(angle) * physicsObject.getOriginY() * 2 + */
+					physicsObject.getY() - physicsObject.getOriginY();
+				float velX = MathUtils.cos(angle) * this.physicsObjectVelocity.len();
+				float velY = MathUtils.sin(angle) * this.physicsObjectVelocity.len();
 				
-				Driver.level.addDestructible(newX, newY, velX, velY,
+				Destructible temp = Driver.level.addDestructible(newX, newY, velX, velY,
 						this.getMass() / this.subDestructiblesHeld);
+				
+				if (temp != null) {
+					ignoreTheseCollisions.add(temp);
+				}
+			}
+			
+			for (Destructible d : ignoreTheseCollisions) {
+				//Sketchy method at the moment.
+				for (Destructible otherD : ignoreTheseCollisions) {
+					if (d != otherD) {
+						d.ignoreTheseCollisions.add(otherD);
+					}
+				}
 			}
 		}
 		

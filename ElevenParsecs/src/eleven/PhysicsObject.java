@@ -57,6 +57,7 @@ public class PhysicsObject {
 		//TODO: Add movement logic
 		update();
 		physicsObject.draw(batch);
+		Driver.gui.font.draw(batch, this.getMass() + "", this.position2.x, this.position2.y);
 	}
 	
 	//TODO: Remove new Vector2's
