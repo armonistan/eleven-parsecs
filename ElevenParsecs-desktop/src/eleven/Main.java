@@ -12,7 +12,7 @@ public class Main {
 		cfg.height = 700;
 		cfg.resizable = false;
 		cfg.vSyncEnabled = true;
-		cfg.foregroundFPS = 30;
+		//cfg.foregroundFPS = 30;
 		new LwjglApplication(new Driver(), cfg);
 	}
 }

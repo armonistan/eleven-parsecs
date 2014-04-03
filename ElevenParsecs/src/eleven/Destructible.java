@@ -1,20 +1,13 @@
 package eleven;
 
-import java.util.LinkedList;
-import java.util.Random;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Polygon;
-import com.badlogic.gdx.math.Vector2;
 
 public class Destructible extends PhysicsObject{
 	
 	private int resourcesHeld;
 	private int subDestructiblesHeld;
 	public LinkedList<Destructible> ignoreTheseCollisions; //It's fine, don't worry
+	private int health;
 	
 	public Destructible(float initialX, float initialY, 
 			float atlasX, float atlasY, float intialVelocityX, float intialVelocityY, int mass){
@@ -25,6 +18,7 @@ public class Destructible extends PhysicsObject{
 		//variable that says how many sub destructibles are made
 		subDestructiblesHeld = 2; //arbitrary number
 		
+		this.health = mass / 5;
 		ignoreTheseCollisions = new LinkedList<Destructible>();
 	}
 	
@@ -86,7 +80,15 @@ public class Destructible extends PhysicsObject{
 		
 		return vertices;
 	}
-		
+	
+	public void damageDestructible(int damage) {
+		this.health -= damage;
+	}
+	
+	public int getHealth() {
+		return this.health;
+	}
+	
 	public void destroy() {
 		//spawn resources
 		for (int i = 0; i < resourcesHeld; i++) {

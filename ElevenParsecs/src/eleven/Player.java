@@ -10,6 +10,8 @@ import com.badlogic.gdx.math.*;
 
 public class Player extends PhysicsObject{
 	private int numResourcesGathered;
+	
+	public Laser laser;
 	//movement vectors
 	Vector2 forward; 
 	Vector2 backward;
@@ -24,6 +26,7 @@ public class Player extends PhysicsObject{
 	public Player(int x, int y) {
 		super(x, y, 10, 0, 0, 0, 0);
 		numResourcesGathered = 0;
+		laser = new Laser(x, y, physicsObject.getRotation(), 100);
 		forward =  new Vector2();
 		backward = new Vector2();
 	}
@@ -34,6 +37,7 @@ public class Player extends PhysicsObject{
 		calculateEngineForces();
 		checkInput();
 		super.update();
+		laser.updatePosition(physicsObject.getX() + 16, physicsObject.getY() + 16, physicsObject.getRotation());
 	}
 	
 	private void calculateEngineForces(){
@@ -56,6 +60,9 @@ public class Player extends PhysicsObject{
 		}
 		if(Gdx.input.isKeyPressed(Keys.D)){
 			changeRotation(RIGHT);
+		}
+		if(Gdx.input.isKeyPressed(Keys.SPACE)){
+			//laser.drawLaser();
 		}
 	}
 	
