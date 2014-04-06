@@ -137,6 +137,19 @@ public class LevelGenerator {
 		//Driver.level.destructibles.add(new Destructible(Driver.level.playerStartX + 100, Driver.level.playerStartY + 50, 2, destImg.y, -1, 0, 10));
 	}
 	
+	public void maintainDestructibles() {
+		Destructible temp;
+		int numToSpawn = 3;
+		do {
+			temp = Driver.level.addDestructible(Driver.random.nextInt(LevelManager.mapPxSize * 2) - LevelManager.mapPxSize,
+					Driver.random.nextInt(LevelManager.mapPxSize * 2) - LevelManager.mapPxSize,
+					0, 0, Driver.random.nextInt(20) * 10 + 100);
+			numToSpawn--;
+		}
+		while (temp != null && numToSpawn >= 0 &&
+			Driver.level.destructibles.size() + Driver.level.destructiblesToAdd.size() < LevelManager.numDestructibles - 15);
+	}
+	
 	//logic in, actual numbers to be decided when atlas sheet is complete
 	private int calculateDestructibleAtalasX(int mass){
 		if(mass < 10)

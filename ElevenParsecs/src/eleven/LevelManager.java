@@ -3,6 +3,7 @@ package eleven;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -13,13 +14,15 @@ import com.badlogic.gdx.math.Vector2;
 public class LevelManager {
 	LevelGenerator generator;
 	TiledMap map;
-	public static int mapSize = 1000;
+	public static int mapSize = 100;
 	public static int mapPxSize = mapSize * 32;
 	public static int playerStartX = mapPxSize / 2;
 	public static int playerStartY = playerStartX;
 	OrthogonalTiledMapRenderer mapRenderer;
 
-	public static int numDestructibles = 20;
+	public static int numDestructibles = 30;
+	private float spawnTimer;
+	private float spawnTime = 2;
 	
 	public static Player player;
 	public static Base base;
@@ -128,6 +131,14 @@ public class LevelManager {
 			destructibles.remove(d);
 		}
 		
+		if (spawnTimer >= spawnTime) {
+			spawnTimer = 0;
+			this.generator.maintainDestructibles();
+		}
+		else {
+			spawnTimer += Gdx.graphics.getRawDeltaTime();
+		}
+		
 		for (Destructible d : destructiblesToAdd) {
 			destructibles.add(d);
 		}
@@ -146,7 +157,7 @@ public class LevelManager {
 	}
 	
 	public Destructible addDestructible(float x, float y, float velocityX, float velocityY, int mass) {
-		if(destructibles.size() < 30) {
+		if(destructibles.size() + destructiblesToAdd.size() < numDestructibles) {
 			Destructible temp = new Destructible(x, y, this.calculateDestructibleAtalasX(mass), this.calculateDestructibleAtalasY(mass), 0, 0, mass);
 			temp.setVelocity(velocityX, velocityY);
 			
