@@ -79,35 +79,6 @@ public class LevelManager {
 			}
 			for (int j = i+1; j < destructibles.size(); j++) {
 				Destructible d2 = destructibles.get(j);
-				if(d != d2 && 
-						CollisionHelper.checkCollideSAT(d.getPhysicsObjectPolygon(), d2.getPhysicsObjectPolygon())){
-					d.calculateCollision(d2);
-				}
-			}
-		}
-		
-		batch.begin();
-		base.render(batch);
-		player.render(batch);
-		
-		//Manage the resources
-		for (Resource r : resources) {
-			r.render(batch);
-		}
-		for (Resource r : resourcesToDestroy) {
-			resources.remove(r);
-		}
-		for (Resource r : resourcesToAdd) {
-			resources.add(r);
-		}
-		resourcesToDestroy.clear();
-		resourcesToAdd.clear();
-		
-		//Manage the destructibles
-		//TODO: added provisions for destructibles making destructibles
-		
-			
-				
 				if (d != d2) {
 					//SLIGHTLY TEMP
 					if (CollisionHelper.checkCollide(d.getSprite(), d2.getSprite())) {
@@ -131,6 +102,27 @@ public class LevelManager {
 				}
 			}
 		}
+		
+		batch.begin();
+		base.render(batch);
+		player.render(batch);
+		
+		//Manage the resources
+		for (Resource r : resources) {
+			r.render(batch);
+		}
+		for (Resource r : resourcesToDestroy) {
+			resources.remove(r);
+		}
+		for (Resource r : resourcesToAdd) {
+			resources.add(r);
+		}
+		resourcesToDestroy.clear();
+		resourcesToAdd.clear();
+		
+		//Manage the destructibles
+		//TODO: added provisions for destructibles making destructibles
+
 		for (Destructible d: destructibles){
 			d.render(batch);
 		}

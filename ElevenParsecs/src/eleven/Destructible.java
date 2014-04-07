@@ -92,7 +92,7 @@ public class Destructible extends PhysicsObject{
 	
 	public void destroy() {
 		//spawn resources
-		for (int i = 0; i < resourcesHeld; i++) {
+		for (int i = 0; i < resourcesHeld * getMass() / 10 + 1; i++) {
 			Driver.level.addResource(physicsObject.getX() - 10 + Driver.random.nextFloat() * 20, physicsObject.getY() - 10 + Driver.random.nextFloat() * 10);
 		}
 		
