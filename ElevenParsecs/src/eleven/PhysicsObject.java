@@ -57,6 +57,7 @@ public class PhysicsObject {
 		//TODO: Add movement logic
 		update();
 		physicsObject.draw(batch);
+		Driver.gui.font.draw(batch, this.getMass() + "", this.position2.x, this.position2.y);
 	}
 	
 	//TODO: Remove new Vector2's
@@ -74,12 +75,39 @@ public class PhysicsObject {
 	
 	//update method
 	protected void update(){
+		keepObjectBounded();
 		calculateAcceleration();
 		calculateVelocity();
 		calculateChangeInPlayerPosition();
 		movePhysicsObject();
 		resetForceOnPhysicsObject();
 		updatePolygon();
+	}
+	
+	protected void keepObjectBounded() {
+		float scale = 0.5f;
+		
+		if (physicsObject.getX() < 0) {
+			physicsObject.setPosition(0, physicsObject.getY());
+			physicsObjectVelocity.set(physicsObjectVelocity.x * -1, physicsObjectVelocity.y);
+			physicsObjectVelocity.scl(scale);
+		}
+		if (physicsObject.getX() >= LevelManager.mapPxSize) {
+			physicsObject.setPosition(LevelManager.mapPxSize, physicsObject.getY());
+			physicsObjectVelocity.set(physicsObjectVelocity.x * -1, physicsObjectVelocity.y);
+			physicsObjectVelocity.scl(scale);
+		}
+		
+		if (physicsObject.getY() < 0) {
+			physicsObject.setPosition(physicsObject.getX(), 0);
+			physicsObjectVelocity.set(physicsObjectVelocity.x, physicsObjectVelocity.y * -1);
+			physicsObjectVelocity.scl(scale);
+		}
+		if (physicsObject.getY() >= LevelManager.mapPxSize) {
+			physicsObject.setPosition(physicsObject.getX(), LevelManager.mapPxSize);
+			physicsObjectVelocity.set(physicsObjectVelocity.x, physicsObjectVelocity.y * -1);
+			physicsObjectVelocity.scl(scale);
+		}
 	}
 	
 	public void calculateCollision(PhysicsObject other){

@@ -3,6 +3,7 @@ package eleven;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -13,13 +14,15 @@ import com.badlogic.gdx.math.Vector2;
 public class LevelManager {
 	LevelGenerator generator;
 	TiledMap map;
-	public static int mapSize = 1000;
+	public static int mapSize = 100;
 	public static int mapPxSize = mapSize * 32;
 	public static int playerStartX = mapPxSize / 2;
 	public static int playerStartY = playerStartX;
 	OrthogonalTiledMapRenderer mapRenderer;
 
-	public static int numDestructibles = 20;
+	public static int numDestructibles = 30;
+	private float spawnTimer;
+	private float spawnTime = 2;
 	
 	public static Player player;
 	public static Base base;
@@ -103,12 +106,45 @@ public class LevelManager {
 		//Manage the destructibles
 		//TODO: added provisions for destructibles making destructibles
 		
+			
+				
+				if (d != d2) {
+					//SLIGHTLY TEMP
+					if (CollisionHelper.checkCollide(d.getSprite(), d2.getSprite())) {
+						if (!d.ignoreTheseCollisions.contains(d2)) {
+							if (CollisionHelper.checkCollideSAT(d.getPhysicsObjectPolygon(), d2.getPhysicsObjectPolygon())) {
+								d.calculateCollision(d2);
+								
+								if (d.getMass() < d2.getMass()) {
+									d.destroy();
+								}
+								else if (d2.getMass() < d.getMass()) {
+									d2.destroy();
+								}
+							}
+						}
+					}
+					else if (d.ignoreTheseCollisions.contains(d2)) {
+						d.ignoreTheseCollisions.remove(d2);
+						d2.ignoreTheseCollisions.remove(d);
+					}
+				}
+			}
+		}
 		for (Destructible d: destructibles){
 			d.render(batch);
 		}
 		
 		for (Destructible d : destructiblesToDestroy) {
 			destructibles.remove(d);
+		}
+		
+		if (spawnTimer >= spawnTime) {
+			spawnTimer = 0;
+			this.generator.maintainDestructibles();
+		}
+		else {
+			spawnTimer += Gdx.graphics.getRawDeltaTime();
 		}
 		
 		for (Destructible d : destructiblesToAdd) {
@@ -128,12 +164,17 @@ public class LevelManager {
 		resourcesToAdd.add(newRes);
 	}
 	
-	public void addDestructible(float x, float y, float velocityX, float velocityY, int mass) {
-		if(destructibles.size() < 30) {
+	public Destructible addDestructible(float x, float y, float velocityX, float velocityY, int mass) {
+		if(destructibles.size() + destructiblesToAdd.size() < numDestructibles) {
 			Destructible temp = new Destructible(x, y, this.calculateDestructibleAtalasX(mass), this.calculateDestructibleAtalasY(mass), 0, 0, mass);
 			temp.setVelocity(velocityX, velocityY);
 			
 			destructiblesToAdd.add(temp);
+			
+			return temp;
+		}
+		else {
+			return null;
 		}
 	}
 

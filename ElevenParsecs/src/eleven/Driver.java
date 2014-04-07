@@ -61,7 +61,7 @@ public class Driver implements ApplicationListener {
 	@Override
 	public void render() {	
 		//This clears the screen.
-		Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
 		if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
