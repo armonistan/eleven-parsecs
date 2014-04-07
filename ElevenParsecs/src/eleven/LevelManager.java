@@ -62,6 +62,27 @@ public class LevelManager {
 
 		Driver.gravity.ComputeGravity();
 		
+		//Does collisions for all destructibles
+		for (int i = 0; i < destructibles.size(); i++) {
+			Destructible d = destructibles.get(i);
+			if (this.player.laser.isLaserActive()) {
+				if (this.player.laser.isLaserWithinPolygon(d.getPhysicsObjectPolygon())) {
+					d.damageDestructible(1);
+				}
+			}
+			if (d.getHealth() < 0) {
+				d.destroy();
+				break;
+			}
+			for (int j = i+1; j < destructibles.size(); j++) {
+				Destructible d2 = destructibles.get(j);
+				if(d != d2 && 
+						CollisionHelper.checkCollideSAT(d.getPhysicsObjectPolygon(), d2.getPhysicsObjectPolygon())){
+					d.calculateCollision(d2);
+				}
+			}
+		}
+		
 		batch.begin();
 		base.render(batch);
 		player.render(batch);
@@ -81,27 +102,6 @@ public class LevelManager {
 		
 		//Manage the destructibles
 		//TODO: added provisions for destructibles making destructibles
-		
-		//Does collisions for all destructibles
-		for (int i = 0; i < destructibles.size(); i++) {
-			Destructible d = destructibles.get(i);
-			if (d.getPhysicsObjectPolygon().contains(this.player.laser.getLaserEndPointPosition().x, this.player.laser.getLaserEndPointPosition().y)) {
-				d.damageDestructible(1);
-			}
-			if (d.getHealth() < 0) {
-				d.destroy();
-				break;
-			}
-			for (int j = i+1; j < destructibles.size(); j++) {
-				Destructible d2 = destructibles.get(j);
-				if(d != d2 && 
-						CollisionHelper.checkCollideSAT(d.getPhysicsObjectPolygon(), d2.getPhysicsObjectPolygon())){
-					d.calculateCollision(d2);
-					d.destroy();
-					d2.destroy();
-				}
-			}
-		}
 		
 		for (Destructible d: destructibles){
 			d.render(batch);

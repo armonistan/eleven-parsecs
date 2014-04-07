@@ -1,5 +1,7 @@
 package eleven;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 
 public class Destructible extends PhysicsObject{
@@ -16,7 +18,7 @@ public class Destructible extends PhysicsObject{
 		resourcesHeld = Driver.random.nextInt(3);//arbitrary number atm
 		//variable that says how many sub destructibles are made
 		subDestructiblesHeld = 2; //arbitrary number
-		this.health = mass / 5;
+		this.health = mass/2;
 	}
 	
 	@Override

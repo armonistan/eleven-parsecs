@@ -91,7 +91,7 @@ public class Driver implements ApplicationListener {
 		batch.setProjectionMatrix(camera.combined);
 		level.render(batch);
 		
-		if (Gdx.input.isKeyPressed(Keys.SPACE)) {
+		if (level.player.laser.isLaserActive()) {
 			shapeBatch.begin(ShapeType.Line);
 			shapeBatch.setColor(1, 0, 0, 1);
 			shapeBatch.line(level.player.laser.getLaserPosition(), level.player.laser.getLaserEndPointPosition());

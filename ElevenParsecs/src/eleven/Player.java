@@ -26,7 +26,7 @@ public class Player extends PhysicsObject{
 	public Player(int x, int y) {
 		super(x, y, 10, 0, 0, 0, 0);
 		numResourcesGathered = 0;
-		laser = new Laser(x, y, physicsObject.getRotation(), 100);
+		laser = new Laser(x, y, physicsObject.getRotation(), 100, 100);
 		forward =  new Vector2();
 		backward = new Vector2();
 	}
